@@ -71,4 +71,4 @@ args = dict(
     include_package_data=True,
 )
 
-setup(options={'bdist_wheel': {'universal': True}}, **args)
+setup(**args)
