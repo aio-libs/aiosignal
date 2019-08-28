@@ -105,9 +105,22 @@ matrix:
     script:
     - LC_ALL=C sort -c CONTRIBUTORS.txt
 
+
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+    secure: qmyq5Qr0tF0ak/2IS5dBTTmX7WIysbOg2WuBfIrx44IPYbqAqIV+vxN7WtcZurHPJqplNuaU2eWiHKg68x1hiLPxGQmnxwn938tNJ147XCRDL9IPLcLQEfssUIWBbZE0bXaHJcdybYg6YaryR1d7lSewInQ6i51BxhQDFfB9hr4NUEM9yoN5XzvFLq5EsHuXL3IQPe3Rn07QebRPJhekk++FwgWB487TBF1sx8rbFpvBoNiE7X1tFnyTjZTl4eyPHo/3cTpzhO8cdELgnO0Ux9wHjhvhywK2oh0Ct49D4NnZ1eM2mrHiBxR/9pYC7N4pStTReqELjk2Cr9JS8dzRO0NWzZL+ElMVpLbVhJauYlG570sIPaauBhy40dy+hrjqCtMjrJsbt9kpugmEyYpKt9nKWGxcGvuwepOYyQmE/5iT/Ox8g+m07G4SYksP0lEUPmsXtrtRMr6hRmBuBCYGN4Sv1c+K+rdRL5OdLA8QuSRceNXCf9StF5BJPYTg5X6cLj99Lb9KLKnMJg6VkBx8ovBPpghALeNul/D41kjV1azx4RP7kKD4e1LzfAO8uOITudiCfFyBawXDbiNeaeACy4YniCTwZvC++sgTMPEP3cbqviunLe5EiNabjb2GxxtGXmIahu3NNFw+FreYacWdj9N/Zc1T4SH6HIaQybF3SuU=
+  distributions: "sdist bdist_wheel"
+  skip_existing: true
+  on:
+    <<: *_mainstream_python_base
+    tags: true
+
 stages:
 - *doc_stage_name
 - test
+- deploy
 
 cache: pip
 
