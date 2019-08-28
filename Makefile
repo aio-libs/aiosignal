@@ -30,7 +30,9 @@ check_changes:
 	./tools/check_changes.py
 
 mypy: .flake
-	@mypy aiosignal
+	if python -c "import sys; sys.exit(sys.implementation.name!='cpython')"; then \
+            mypy aiosignal; \
+	fi
 
 .develop: .install-deps $(shell find aiosignal -type f) .flake check_changes mypy
 	# pip install -e .
