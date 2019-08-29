@@ -1,5 +1,3 @@
-conditions: v1
-version: "= 0"
 if: >  # Forbid running non-PR pushes from pyup bot
   not (type != pull_request AND branch =~ ^pyup\-scheduled\-update\-)
 
@@ -12,10 +10,10 @@ python:
 - 3.6
 - &mainstream_python 3.7
 - 3.8-dev
-- &pypy3 pypy3.5-6.0.0
+- pypy3
 
 install:
-- &upgrade_python_toolset pip install --upgrade pip wheel setuptools
+- pip install --upgrade pip wheel setuptools
 - pip install -r requirements/ci.txt
 
 script:
@@ -25,31 +23,30 @@ after_success:
  - codecov
 
 _helpers:
-- &_mainstream_python_base
+  # anchor nodes to be included elsewhere.
+- &mainstream_python_base
   python: *mainstream_python
-- &_reset_steps
+
+- &lint_base
+  <<: *mainstream_python_base
   env: []
   before_install: skip
   install: skip
+  before_script: skip
   script: skip
-  after_success: []
-- &_lint_base
   stage: &doc_stage_name docs, linting and pre-test checks
-  <<: *_mainstream_python_base
-  <<: *_reset_steps
-  install:
-  - *upgrade_python_toolset
-  - pip install -U -r requirements/ci.txt
-- &_doc_base
-  <<: *_lint_base
-  install:
-  - *upgrade_python_toolset
-  - pip install -U -r requirements/doc.txt -r requirements/doc-spelling.txt
-  after_failure: cat docs/_build/spelling/output.txt
-  addons:
-    apt:
-      packages:
-      - libenchant-dev
+
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+    # Encrypted with `travis encrypt`:
+    secure: "QnfCQAFZoNXlrNe2UVeI24DTbWu5bzlNdqypXFvey/ga9H2ba9KnWIGFws+1uTux3E9fbfxcNTzO3iLXHc7VEjsif7xvuyIu/NBfV+4ONHGeR7UuwB4iu9PU6cMeD422vYceFZBB7KMfwJZ+mLJWQTKIf74iWK8mIx4IUK8S9As5Ypx6yQdatJr4jgQ/j/1MI4xnmKKIkIJZ18k5epF7N0ifEdZC7TfCuGXF5AMVwxHjUWPzxfkOtC+ENJ8NivZQOCNj/DIeH2nJSVexQrYo+xIO7D40k/hy2lzWqqSTgqE978055UzBQNZmdarzxb8frln5OvvVMIVr8xKZVszglA17fbpuQjMz3ThiDuhozo/dRTNeN+n9r33tm3fRjrzqEcr0mTHzHs7wypmZoXLJplnIko6T3SvnF+O8nhdlIJjArPVJE00kkTj6bz3cKlWYi5OyaFWPo5zLuAvjtPpbUlg/pyus9xsic630JdYQv2IZOrHFkw9OGD/FKy1K1hZ1YIA+XC8cD0s8K+C+NPnCeJ7/yAPwzrMv4XoPhqO5V4D8eJP7FIecbvHxQj0V+tF15OtjqxyuY2+G+NQ6ySn/OFOLrkvCOzselCc4qiEGSzKLlS0BdqLSryekFVUIVr8cng43PHq9bMbXWw9OV0WDs+no0bwGNRJd+FsKzk/4AiE="  distributions: "sdist bdist_wheel"
+  skip_existing: true
+  on:
+    <<: *mainstream_python_base
+    tags: true
+    all_branches: true
 
 os: linux
 
@@ -58,64 +55,49 @@ matrix:
   allow_failures:
   - python: 3.8-dev
 
-  - <<: *_doc_base
+  - <<: *lint_base
     name: Checking docs spelling
+    before_script:
+    - pip install --upgrade -r requirements/doc-spelling.txt
     script:
     - make doc-spelling
+    after_failure: cat docs/_build/spelling/output.txt
+    addons:
+      apt:
+        packages:
+        - libenchant-dev
 
-  - <<: *_doc_base
+  - <<: *lint_base
     name: Checking Towncrier fragments
-    install:
-    - *upgrade_python_toolset
-    - pip install -r requirements/ci.txt
-    - pip install -r requirements/towncrier.txt
+    before_script:
+    - pip install --upgrade -r requirements/towncrier.txt
     script:
     - towncrier --yes
 
-  - <<: *_lint_base
+  - <<: *lint_base
     name: Linting source code with flake8
-    install:
-    - *upgrade_python_toolset
-    - pip install -r requirements/flake.txt
+    before_script:
+    - pip install --upgrade -r requirements/flake.txt
     script:
     - flake8 aiosignal tests
 
-  - <<: *_lint_base
+  - <<: *lint_base
     name: Linting source code with mypy
-    install:
-    - *upgrade_python_toolset
-    - pip install -r requirements/ci.txt
     script:
     - mypy aiosignal
 
-  - <<: *_lint_base
+  - <<: *lint_base
     name: Verifying distribution package metadata
-    install:
-    - *upgrade_python_toolset
-    - pip install -r requirements/ci.txt -r requirements/doc.txt
     script:
     - python setup.py --verbose sdist bdist_wheel
     - twine check dist/*
 
-  - <<: *_lint_base
+  - <<: *lint_base
     name: Making sure that CONTRIBUTORS.txt remains sorted
     language: shell
-    install:
-    - skip
+    install: skip
     script:
     - LC_ALL=C sort -c CONTRIBUTORS.txt
-
-
-deploy:
-  provider: pypi
-  username: __token__
-  password:
-    secure: qmyq5Qr0tF0ak/2IS5dBTTmX7WIysbOg2WuBfIrx44IPYbqAqIV+vxN7WtcZurHPJqplNuaU2eWiHKg68x1hiLPxGQmnxwn938tNJ147XCRDL9IPLcLQEfssUIWBbZE0bXaHJcdybYg6YaryR1d7lSewInQ6i51BxhQDFfB9hr4NUEM9yoN5XzvFLq5EsHuXL3IQPe3Rn07QebRPJhekk++FwgWB487TBF1sx8rbFpvBoNiE7X1tFnyTjZTl4eyPHo/3cTpzhO8cdELgnO0Ux9wHjhvhywK2oh0Ct49D4NnZ1eM2mrHiBxR/9pYC7N4pStTReqELjk2Cr9JS8dzRO0NWzZL+ElMVpLbVhJauYlG570sIPaauBhy40dy+hrjqCtMjrJsbt9kpugmEyYpKt9nKWGxcGvuwepOYyQmE/5iT/Ox8g+m07G4SYksP0lEUPmsXtrtRMr6hRmBuBCYGN4Sv1c+K+rdRL5OdLA8QuSRceNXCf9StF5BJPYTg5X6cLj99Lb9KLKnMJg6VkBx8ovBPpghALeNul/D41kjV1azx4RP7kKD4e1LzfAO8uOITudiCfFyBawXDbiNeaeACy4YniCTwZvC++sgTMPEP3cbqviunLe5EiNabjb2GxxtGXmIahu3NNFw+FreYacWdj9N/Zc1T4SH6HIaQybF3SuU=
-  distributions: "sdist bdist_wheel"
-  skip_existing: true
-  on:
-    <<: *_mainstream_python_base
-    tags: true
 
 stages:
 - *doc_stage_name
