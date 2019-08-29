@@ -27,27 +27,16 @@ _helpers:
 - &mainstream_python_base
   python: *mainstream_python
 
-- &lint_base
-  <<: *mainstream_python_base
+- &reset_steps
   env: []
   before_install: skip
   install: skip
   before_script: skip
   script: skip
-  stage: &doc_stage_name docs, linting and pre-test checks
 
-deploy:
-  provider: pypi
-  username: __token__
-  password:
-    # Encrypted with `travis encrypt`:
-    secure: "GKdaAN07H4j7EHc9fdUpKkt/mMGfRH3jKoOLFF7bWk72amwg3F0KLdPabLa8991JFDo3sy/fN7EjBXVAnSXbCQ1ExYdM0V8wXj7GwrtdXVTBOHwPeFg/2NaOBgveNEbCxJKPAGm0h+EYIPz22s4mIheJQWdiQxk9keT5CsEsO6YdkWY0WjB1KC+mtk8M4pXtbDFuCQlR/irpp8OOobK7BOuvk6qV7H2zf+MsatS5mX1c+tWqacnU4lrCLrJZ7+StlMZtRLYVpnIEcH0OMDpQOvdPsqK6zMyuSWN6Fzp5ymusxQDdHuOs4VEDe2vYzjYE4XfRfEVGGNIbIoj2yEUr8P8URTjAH5eYd87Eslz0doL3CCHvbpKhwB2dB4SSUwUvdPYsjIKHM1wNJEZ7PpsY9zV18n7z8fdNm3pa0czXhfKr13SOqiGnevtbEibzKV4zT23nyQphxV2LxxI/MmPffKfaHhDD2Fp9hc7kb/rKL9fHUA9gYN008FzMaIEN0H4kbV3omC2CfEehUAMWwD5ndWVEcR7fye3d36vN7/g7uwyJa+NN8jIJU9gp1WFRuvFSARkJ0CzDbdKgbeliQ5AG2lDHGl22BAG/dVhosVw4DHG4IgPtgdkcR+34SUsZb+mHqRVozQNOZp6xlIhNP9HxZr2OQQGQY09lM/k5SojxCyg="
-  distributions: "sdist bdist_wheel"
-  skip_existing: true
-  on:
-    <<: *mainstream_python_base
-    tags: true
-    all_branches: true
+- &lint_base
+  <<: *mainstream_python_base
+  stage: &doc_stage_name docs, linting and pre-test checks
 
 os: linux
 
@@ -55,6 +44,25 @@ matrix:
   fast_finish: true
   allow_failures:
   - python: 3.8-dev
+
+  include:
+  - <<: *mainstream_python_base
+    <<: *reset_steps
+    stage: &deploy_stage_name Deploy
+    name: Deploy source distribution and wheel to PyPI
+    script:
+      echo "Deploying"
+    deploy:
+      provider: pypi
+      username: __token__
+      password:
+        # Encrypted with `travis encrypt`:
+        secure: "GKdaAN07H4j7EHc9fdUpKkt/mMGfRH3jKoOLFF7bWk72amwg3F0KLdPabLa8991JFDo3sy/fN7EjBXVAnSXbCQ1ExYdM0V8wXj7GwrtdXVTBOHwPeFg/2NaOBgveNEbCxJKPAGm0h+EYIPz22s4mIheJQWdiQxk9keT5CsEsO6YdkWY0WjB1KC+mtk8M4pXtbDFuCQlR/irpp8OOobK7BOuvk6qV7H2zf+MsatS5mX1c+tWqacnU4lrCLrJZ7+StlMZtRLYVpnIEcH0OMDpQOvdPsqK6zMyuSWN6Fzp5ymusxQDdHuOs4VEDe2vYzjYE4XfRfEVGGNIbIoj2yEUr8P8URTjAH5eYd87Eslz0doL3CCHvbpKhwB2dB4SSUwUvdPYsjIKHM1wNJEZ7PpsY9zV18n7z8fdNm3pa0czXhfKr13SOqiGnevtbEibzKV4zT23nyQphxV2LxxI/MmPffKfaHhDD2Fp9hc7kb/rKL9fHUA9gYN008FzMaIEN0H4kbV3omC2CfEehUAMWwD5ndWVEcR7fye3d36vN7/g7uwyJa+NN8jIJU9gp1WFRuvFSARkJ0CzDbdKgbeliQ5AG2lDHGl22BAG/dVhosVw4DHG4IgPtgdkcR+34SUsZb+mHqRVozQNOZp6xlIhNP9HxZr2OQQGQY09lM/k5SojxCyg="
+      distributions: "sdist bdist_wheel"
+      skip_existing: true
+      on:
+        tags: true
+        all_branches: true
 
   - <<: *lint_base
     name: Checking docs spelling
@@ -103,7 +111,7 @@ matrix:
 stages:
 - *doc_stage_name
 - test
-- deploy
+- *deploy_stage_name
 
 cache: pip
 
