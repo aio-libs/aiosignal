@@ -2,13 +2,9 @@
 aiosignal
 =========
 
-.. image:: https://travis-ci.com/aio-libs/aiosignal.svg?branch=master
-   :target: https://travis-ci.com/aio-libs/aiosignal
-   :alt: Travis status for master branch
-
-.. image:: https://ci.appveyor.com/api/projects/status/tnddy9k6pphl8w7k/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/aio-libs/aiosignal
-   :alt: AppVeyor status for master branch
+.. image:: https://dev.azure.com/aio-libs/aiosignal/_apis/build/status/CI?branchName=master
+   :target: https://dev.azure.com/aio-libs/aiosignal/_build/latest?definitionId=11&branchName=master
+   :alt: Azure Pipelines status for master branch
 
 .. image:: https://codecov.io/gh/aio-libs/aiosignal/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/aio-libs/aiosignal

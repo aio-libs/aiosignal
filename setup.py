@@ -4,7 +4,6 @@ import sys
 
 from setuptools import setup
 
-
 if sys.version_info < (3, 5, 3):
     raise RuntimeError("aiosignal 1.x requires Python 3.5.3+")
 
@@ -55,10 +54,8 @@ args = dict(
     url='https://github.com/aio-libs/aiosignal',
     project_urls={
         'Chat: Gitter': 'https://gitter.im/aio-libs/Lobby',
-        'CI: AppVeyor': 'https://ci.appveyor.com/project/aio-libs/aiosignal',
-        'CI: Circle': 'https://circleci.com/gh/aio-libs/aiosignal',
-        'CI: Shippable': 'https://app.shippable.com/github/aio-libs/aiosignal',
-        'CI: Travis': 'https://travis-ci.com/aio-libs/aiosignal',
+        'CI: Azure Pipelines':
+            'https://dev.azure.com/aio-libs/aiosignal/_build',
         'Coverage: codecov': 'https://codecov.io/github/aio-libs/aiosignal',
         'Docs: RTD': 'https://docs.aiosignal.org',
         'GitHub: issues': 'https://github.com/aio-libs/aiosignal/issues',
