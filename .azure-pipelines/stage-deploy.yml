@@ -10,8 +10,8 @@ stages:
   displayName: 'Build'
 
   jobs:
-  - job: create distributions
-    displayName: 'Tarball'
+  - job: distributions
+    displayName: 'Create distributions'
     pool:
       vmImage: 'ubuntu-latest'
 
