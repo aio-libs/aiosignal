@@ -1,5 +1,7 @@
 # Some simple testing tasks (sorry, UNIX only).
 
+SRC = aiosignal tests setup.py
+
 all: test
 
 .install-deps: 
@@ -7,8 +9,7 @@ all: test
 	@touch .install-deps
 
 isort:
-	isort -rc aiosignal
-	isort -rc tests
+	isort -rc $(SRC)
 
 flake: .flake
 
@@ -26,13 +27,21 @@ flake: .flake
 	fi
 	@touch .flake
 
-check_changes:
-	./tools/check_changes.py
+flake8:
+	flake8 $(SRC)
 
 mypy: .flake
-	if python -c "import sys; sys.exit(sys.implementation.name!='cpython')"; then \
-            mypy aiosignal; \
+	mypy aiosignal
+
+isort-check:
+	@if ! isort -rc --check-only $(SRC); then \
+            echo "Import sort errors, run 'make isort' to fix them!!!"; \
+            isort --diff -rc $(SRC); \
+            false; \
 	fi
+
+check_changes:
+	./tools/check_changes.py
 
 .develop: .install-deps $(shell find aiosignal -type f) .flake check_changes mypy
 	# pip install -e .
@@ -87,6 +96,9 @@ doc-spelling:
 	@make -C docs spelling SPHINXOPTS="-W -E"
 
 install:
+	@pip install -U 'pip'
 	@pip install -Ur requirements/dev.txt
 
-.PHONY: all build flake test vtest cov clean doc
+install-dev: .develop
+
+.PHONY: all build flake test vtest cov clean doc mypy
