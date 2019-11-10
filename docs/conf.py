@@ -149,7 +149,7 @@ html_theme_options = {
     'github_type': 'star',
     'github_banner': True,
     'badges': [{'image': 'https://dev.azure.com/aio-libs/aiosignal/_apis/build/status/CI?branchName=master',
-                'target': 'https://dev.azure.com/aio-libs/aiosignal/_build/latest?definitionId=11&branchName=master',
+                'target': 'https://dev.azure.com/aio-libs/aiosignal/_build/latest?definitionId=13&branchName=master',
                 'height': '20',
                 'alt': 'Azure Pipelines CI status'},
                {'image': 'https://codecov.io/github/aio-libs/aiosignal/coverage.svg?branch=master',

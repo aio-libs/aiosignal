@@ -3,7 +3,7 @@ aiosignal
 =========
 
 .. image:: https://dev.azure.com/aio-libs/aiosignal/_apis/build/status/CI?branchName=master
-   :target: https://dev.azure.com/aio-libs/aiosignal/_build/latest?definitionId=11&branchName=master
+   :target: https://dev.azure.com/aio-libs/aiosignal/_build/latest?definitionId=13&branchName=master
    :alt: Azure Pipelines status for master branch
 
 .. image:: https://codecov.io/gh/aio-libs/aiosignal/branch/master/graph/badge.svg
