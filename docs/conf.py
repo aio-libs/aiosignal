@@ -16,7 +16,7 @@
 import io
 import os
 import re
-import sys
+
 
 _docs_path = os.path.dirname(__file__)
 _version_path = os.path.abspath(os.path.join(_docs_path,

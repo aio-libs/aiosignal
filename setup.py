@@ -4,8 +4,8 @@ import sys
 
 from setuptools import setup
 
-if sys.version_info < (3, 5, 3):
-    raise RuntimeError("aiosignal 1.x requires Python 3.5.3+")
+if sys.version_info < (3, 6):
+    raise RuntimeError("aiosignal 1.x requires Python 3.6+")
 
 
 here = pathlib.Path(__file__).parent
@@ -19,7 +19,7 @@ except IndexError:
     raise RuntimeError('Unable to determine version.')
 
 install_requires = [
-    'frozenlist>=1.0.0a0',
+    'frozenlist>=1.0.0',
 ]
 
 
@@ -38,7 +38,6 @@ args = dict(
         'Intended Audience :: Developers',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Development Status :: 5 - Production/Stable',
@@ -63,7 +62,7 @@ args = dict(
     },
     license='Apache 2',
     packages=['aiosignal'],
-    python_requires='>=3.5.3',
+    python_requires='>=3.6',
     install_requires=install_requires,
     include_package_data=True,
 )

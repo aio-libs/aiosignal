@@ -53,7 +53,7 @@ Installation
 
    $ pip install aiosignal
 
-The library requires Python 3.5.3 or newer.
+The library requires Python 3.6 or newer.
 
 
 Documentation
@@ -73,8 +73,8 @@ Feel free to post your questions and ideas here.
 Requirements
 ============
 
-- Python >= 3.5.3
-- frozenlist >= 1.0.0a0
+- Python >= 3.6
+- frozenlist >= 1.0.0
 
 License
 =======
