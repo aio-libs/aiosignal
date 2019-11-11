@@ -18,12 +18,16 @@ aiosignal
    :target: https://aiosignal.readthedocs.io/
    :alt: Latest Read The Docs
 
+.. image:: https://img.shields.io/discourse/topics?server=https%3A%2F%2Faio-libs.discourse.group%2F
+   :target: https://aio-libs.discourse.group/
+   :alt: Discourse group for io-libs
+
 .. image:: https://badges.gitter.im/Join%20Chat.svg
    :target: https://gitter.im/aio-libs/Lobby
    :alt: Chat on Gitter
 
 Introduction
-------------
+============
 
 A project to manage callbacks in `asyncio` projects.
 
