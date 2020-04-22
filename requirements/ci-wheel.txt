@@ -1,10 +1,9 @@
 -r flake.txt
+-r ci-wheel.txt
+
 coverage==5.1
-pytest==5.3.5
-pytest-asyncio==0.10.0
 pytest-cov==2.8.1
 tox==3.14.6
-twine==3.1.1
 
 # Using PEP 508 env markers to control dependency on runtimes:
 codecov==2.0.22
