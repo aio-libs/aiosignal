@@ -1,5 +1,5 @@
 -r flake.txt
--r ci-wheel.txt
+-r wheel.txt
 
 coverage==5.1
 pytest-cov==2.8.1
