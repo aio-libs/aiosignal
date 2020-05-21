@@ -6,4 +6,4 @@ pytest-cov==2.8.1
 tox==3.15.1
 
 # Using PEP 508 env markers to control dependency on runtimes:
-codecov==2.1.1
+codecov==2.1.3
