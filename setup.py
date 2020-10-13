@@ -19,7 +19,7 @@ except IndexError:
     raise RuntimeError('Unable to determine version.')
 
 install_requires = [
-    'frozenlist>=1.0.0',
+    'frozenlist>=1.1.0',
 ]
 
 
