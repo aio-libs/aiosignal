@@ -2,9 +2,9 @@
 aiosignal
 =========
 
-.. image:: https://dev.azure.com/aio-libs/aiosignal/_apis/build/status/CI?branchName=master
-   :target: https://dev.azure.com/aio-libs/aiosignal/_build/latest?definitionId=13&branchName=master
-   :alt: Azure Pipelines status for master branch
+.. image:: https://github.com/aio-libs/aiosignal/workflows/CI/badge.svg
+   :target: https://github.com/aio-libs/aiosignal/actions?query=workflow%3ACI
+   :alt: GitHub status for master branch
 
 .. image:: https://codecov.io/gh/aio-libs/aiosignal/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/aio-libs/aiosignal
@@ -43,7 +43,7 @@ and dropping callbacks is forbidden.
 The only available operation is calling the previously registered
 callbacks by using ``await sig.send(data)``.
 
-For concrete usage examples see the `Signals 
+For concrete usage examples see the `Signals
 <https://docs.aiohttp.org/en/stable/web_advanced.html#aiohttp-web-signals>
 section of the `Web Server Advanced
 <https://docs.aiohttp.org/en/stable/web_advanced.html>` chapter of the `aiohttp
@@ -96,4 +96,3 @@ or have some suggestions to improve the library.
 
 .. _GitHub: https://github.com/aio-libs/aiosignal
 .. _aiohttp documentation: https://docs.aiohttp.org/
-
