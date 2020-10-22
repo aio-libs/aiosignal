@@ -55,8 +55,8 @@ args = dict(
     url='https://github.com/aio-libs/aiosignal',
     project_urls={
         'Chat: Gitter': 'https://gitter.im/aio-libs/Lobby',
-        'CI: Azure Pipelines':
-            'https://dev.azure.com/aio-libs/aiosignal/_build',
+        'CI: GitHub Actions':
+            'https://github.com/aio-libs/aiosignal/actions',
         'Coverage: codecov': 'https://codecov.io/github/aio-libs/aiosignal',
         'Docs: RTD': 'https://docs.aiosignal.org',
         'GitHub: issues': 'https://github.com/aio-libs/aiosignal/issues',
