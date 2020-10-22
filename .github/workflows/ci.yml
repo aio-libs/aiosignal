@@ -3,18 +3,29 @@ name: CI
 on:
   push:
     branches:
-      - master
-      - ?.?*  # matches to backport branches, e.g. 3.6
+      - 'master'
+      - '[0-9].[0-9]+'  # matches to backport branches, e.g. 3.6
     tags: [ 'v*' ]
   pull_request:
     branches:
-      - master
-      - ?.?*
+      - 'master'
+      - '[0-9].[0-9]+'
   schedule:
     - cron:  '0 6 * * *'  # Daily 6AM UTC build
 
 
 jobs:
+  pre_job:
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          github_token: ${{ github.token }}
+          paths_ignore: '["CHANGES/**", "CHANGES.rst", "LICENSE.txt", "README.rst", "tools/**"]'
 
   lint:
     name: Linter
@@ -74,7 +85,9 @@ jobs:
 
   test:
     name: Test
-    needs: lint
+    needs: [lint, pre_job]
+    if: ${{ needs.pre_job.outputs.should_skip == 'false' }}
+
     strategy:
       matrix:
         pyver: [3.6, 3.7, 3.8, 3.9]
@@ -120,6 +133,16 @@ jobs:
         file: ./coverage.xml
         flags: unit
         fail_ci_if_error: false
+
+  test-summary:
+    name: Test matrix status
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Check build matrix status
+        if: ${{ needs.pre_job.outputs.should_skip == 'false' }}
+        run: exit 1
 
   deploy:
     name: Deploy
