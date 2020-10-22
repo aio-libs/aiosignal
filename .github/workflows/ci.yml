@@ -86,7 +86,7 @@ jobs:
   test:
     name: Test
     needs: [lint, pre_job]
-    if: ${{ needs.pre_job.outputs.should_skip == 'false' }}
+    if: needs.pre_job.outputs.should_skip == 'false'
 
     strategy:
       matrix:
@@ -136,12 +136,12 @@ jobs:
 
   test-summary:
     name: Test matrix status
-    if: ${{ always() }}
+    if: needs.pre_job.outputs.should_skip == 'false' && always()
     runs-on: ubuntu-latest
-    needs: test
+    needs: [pre_job, test]
     steps:
       - name: Check build matrix status
-        if: ${{ needs.pre_job.outputs.should_skip == 'false' }}
+        if: needs.pre_job.outputs.should_skip == 'false'
         run: exit 1
 
   deploy:
