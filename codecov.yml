@@ -2,7 +2,7 @@ coverage:
   range: "95..100"
 
   status:
-    project: no
+    project: off
 
 flags:
   library:
