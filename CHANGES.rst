@@ -14,6 +14,14 @@ Changelog
 
 .. towncrier release notes start
 
+1.1.1 (2020-11-27)
+==================
+
+Features
+--------
+
+- Support type hints
+
 1.1.0 (2020-10-13)
 ==================
 
