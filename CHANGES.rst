@@ -14,6 +14,15 @@ Changelog
 
 .. towncrier release notes start
 
+1.1.2 (2020-11-27)
+==================
+
+Features
+--------
+
+- Fix MANIFEST.in to include ``aiosignal/py.typed`` marker
+
+
 1.1.1 (2020-11-27)
 ==================
 

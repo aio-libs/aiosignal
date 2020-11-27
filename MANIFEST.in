@@ -3,7 +3,7 @@ include CHANGES.rst
 include README.rst
 include CONTRIBUTORS.txt
 include Makefile
-include aiosignal.py
+graft aiosignal
 graft docs
 graft tests
 global-include *.pyi
