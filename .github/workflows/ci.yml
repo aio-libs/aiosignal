@@ -120,10 +120,19 @@ jobs:
         flags: unit
         fail_ci_if_error: false
 
+  test-summary:
+    name: Test matrix status
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+    - name: Placeholder
+      run: |
+        true
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    needs: test
+    needs: test-summary
     # Run only on pushing a tag
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     steps:
