@@ -124,7 +124,10 @@ jobs:
     name: Test matrix status
     runs-on: ubuntu-latest
     needs: [lint, test]
-    steps: []
+    steps:
+    - name: Placeholder
+      run: |
+        true
 
   deploy:
     name: Deploy
