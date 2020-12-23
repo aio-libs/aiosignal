@@ -144,13 +144,18 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run:
-        python -m pip install -U pip wheel twine
+        python -m pip install -U pip wheel
     - name: Make dists
       run:
         python setup.py sdist bdist_wheel
-    - name: PyPI upload
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: |
-        twine upload dist/*
+    - name: Release
+      uses: aio-libs/create-release@master
+      with:
+        changes_file: CHANGES.rst
+        name: aiosignal
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pypi_token: ${{ secrets.PYPI_TOKEN }}
+        artifact: ""
+        version_file: aiosignal/__init__.py
+        fix_issue_regex: "\n?\\s*`#(\\d+) <https://github.com/aio-libs/aiosignal/issues/\\1>`_"
+        fix_issue_repl: " (#\\1)"
