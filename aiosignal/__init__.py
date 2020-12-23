@@ -1,6 +1,6 @@
 from frozenlist import FrozenList
 
-__version__ = '1.1.3a0'
+__version__ = '1.1.3a1'
 
 __all__ = ('Signal',)
 
