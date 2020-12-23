@@ -14,6 +14,19 @@ Changelog
 
 .. towncrier release notes start
 
+1.1.3 (2020-12-23)
+==================
+
+Bugfixes
+--------
+
+- Mark aiosignal as Python3-only package
+  `#165 <https://github.com/aio-libs/aiosignal/issues/165>`_
+
+
+----
+
+
 1.1.2 (2020-11-27)
 ==================
 
