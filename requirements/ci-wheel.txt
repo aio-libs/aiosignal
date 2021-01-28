@@ -3,7 +3,7 @@
 
 coverage==5.4
 pytest-cov==2.11.1
-tox==3.21.2
+tox==3.21.3
 
 # Using PEP 508 env markers to control dependency on runtimes:
 codecov==2.1.11
