@@ -1,7 +1,7 @@
 -r flake.txt
 -r wheel.txt
 
-coverage==5.4
+coverage==5.5
 pytest-cov==2.11.1
 tox==3.22.0
 
