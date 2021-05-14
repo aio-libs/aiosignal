@@ -2,7 +2,7 @@
 -r wheel.txt
 
 coverage==5.5
-pytest-cov==2.11.1
+pytest-cov==2.12.0
 tox==3.23.1
 
 # Using PEP 508 env markers to control dependency on runtimes:
