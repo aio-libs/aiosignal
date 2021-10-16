@@ -23,9 +23,13 @@ def main(argv):
     changes = root / "CHANGES"
     failed = False
     for fname in changes.iterdir():
-        if fname.name in (".gitignore", ".TEMPLATE.rst"):
+        if fname.name in (".gitignore", ".TEMPLATE.rst", "README.rst"):
             continue
-        if fname.suffix not in ALLOWED_SUFFIXES:
+        if fname.suffix == ".rst":
+            test_name = fname.stem
+        else:
+            test_name = fname
+        if test_name.suffix not in ALLOWED_SUFFIXES:
             if not failed:
                 print("")
             print(fname, "has illegal suffix", file=sys.stderr)
@@ -33,7 +37,11 @@ def main(argv):
 
     if failed:
         print("", file=sys.stderr)
-        print("Allowed suffixes are:", ALLOWED_SUFFIXES, file=sys.stderr)
+        print(
+            "Allowed suffixes are:",
+            ALLOWED_SUFFIXES + [suff + ".rst" for suff in ALLOWED_SUFFIXES],
+            file=sys.stderr,
+        )
         print("", file=sys.stderr)
     else:
         print("OK")
