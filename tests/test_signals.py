@@ -29,7 +29,7 @@ async def test_add_signal_handler_not_a_callable(owner):
 @pytest.mark.asyncio
 async def test_function_signal_dispatch_kwargs(owner):
     signal = Signal(owner)
-    kwargs = {'foo': 1, 'bar': 2}
+    kwargs = {"foo": 1, "bar": 2}
 
     callback_mock = mock.Mock()
 
@@ -46,8 +46,8 @@ async def test_function_signal_dispatch_kwargs(owner):
 @pytest.mark.asyncio
 async def test_function_signal_dispatch_args_kwargs(owner):
     signal = Signal(owner)
-    args = {'a', 'b'}
-    kwargs = {'foo': 1, 'bar': 2}
+    args = {"a", "b"}
+    kwargs = {"foo": 1, "bar": 2}
 
     callback_mock = mock.Mock()
 
@@ -64,7 +64,7 @@ async def test_function_signal_dispatch_args_kwargs(owner):
 @pytest.mark.asyncio
 async def test_non_coroutine(owner: Owner) -> None:
     signal = Signal(owner)
-    kwargs = {'foo': 1, 'bar': 2}
+    kwargs = {"foo": 1, "bar": 2}
 
     callback = mock.Mock()
 
@@ -151,6 +151,10 @@ def test_repr(owner):
 
     signal.append(mock.Mock(__repr__=lambda *a: "<callback>"))
 
-    assert re.match(r"<Signal owner=<Owner 0xdeadbeef>, frozen=False, "
-                    r"\[<callback>\]>",
-                    repr(signal)) is not None
+    assert (
+        re.match(
+            r"<Signal owner=<Owner 0xdeadbeef>, frozen=False, " r"\[<callback>\]>",
+            repr(signal),
+        )
+        is not None
+    )

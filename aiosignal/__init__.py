@@ -1,8 +1,8 @@
 from frozenlist import FrozenList
 
-__version__ = '1.1.3a2'
+__version__ = "1.1.3a2"
 
-__all__ = ('Signal',)
+__all__ = ("Signal",)
 
 
 class Signal(FrozenList):
@@ -14,16 +14,16 @@ class Signal(FrozenList):
     arguments.
     """
 
-    __slots__ = ('_owner',)
+    __slots__ = ("_owner",)
 
     def __init__(self, owner):
         super().__init__()
         self._owner = owner
 
     def __repr__(self):
-        return '<Signal owner={}, frozen={}, {!r}>'.format(self._owner,
-                                                           self.frozen,
-                                                           list(self))
+        return "<Signal owner={}, frozen={}, {!r}>".format(
+            self._owner, self.frozen, list(self)
+        )
 
     async def send(self, *args, **kwargs):
         """
