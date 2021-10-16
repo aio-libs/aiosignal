@@ -14,8 +14,16 @@ Changelog
 
 .. towncrier release notes start
 
-1.1.3a2 (2020-12-23)
+
+1.2.0a0 (2021-10-16)
 ====================
+
+Features
+--------
+
+- Added support for Python 3.10.
+  `#328 <https://github.com/aio-libs/aiosignal/issues/328>`_
+
 
 Bugfixes
 --------
