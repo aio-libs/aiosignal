@@ -68,10 +68,6 @@ https://aiosignal.readthedocs.io/
 Communication channels
 ======================
 
-*aio-libs* google group: https://groups.google.com/forum/#!forum/aio-libs
-
-Feel free to post your questions and ideas here.
-
 *gitter chat* https://gitter.im/aio-libs/Lobby
 
 Requirements
