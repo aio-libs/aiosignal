@@ -4,26 +4,26 @@ SRC = aiosignal tests setup.py
 
 all: test
 
-.install-deps: 
+.install-deps:
 	pip install -r requirements/dev.txt
 	@touch .install-deps
 
 isort:
-	isort -rc $(SRC)
+	isort $(SRC)
 
 flake: .flake
 
 .flake: .install-deps $(shell find aiosignal -type f) \
-                      $(shell find tests -type f)
+					  $(shell find tests -type f)
 	flake8 aiosignal tests
 	python setup.py check -rms
-	@if ! isort -c -rc aiosignal tests; then \
-            echo "Import sort errors, run 'make isort' to fix them!"; \
-            isort --diff -rc aiosignal tests; \
-            false; \
+	@if ! isort -c aiosignal tests; then \
+			echo "Import sort errors, run 'make isort' to fix them!"; \
+			isort --diff aiosignal tests; \
+			false; \
 	fi
 	@if ! LC_ALL=C sort -c CONTRIBUTORS.txt; then \
-            echo "CONTRIBUTORS.txt sort error"; \
+			echo "CONTRIBUTORS.txt sort error"; \
 	fi
 	@touch .flake
 
@@ -34,10 +34,10 @@ mypy: .flake
 	mypy aiosignal
 
 isort-check:
-	@if ! isort -rc --check-only $(SRC); then \
-            echo "Import sort errors, run 'make isort' to fix them!!!"; \
-            isort --diff -rc $(SRC); \
-            false; \
+	@if ! isort --check-only $(SRC); then \
+			echo "Import sort errors, run 'make isort' to fix them!!!"; \
+			isort --diff $(SRC); \
+			false; \
 	fi
 
 check_changes:
