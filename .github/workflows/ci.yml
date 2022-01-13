@@ -35,7 +35,7 @@ jobs:
     - name: Install dependencies
       uses: py-actions/py-dependency-install@v3
       with:
-        path: requirements/flake.txt
+        path: requirements/dev.txt
     - name: Install itself
       run: |
         pip install .
