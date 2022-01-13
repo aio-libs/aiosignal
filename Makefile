@@ -9,7 +9,7 @@ all: test
 	@touch .install-deps
 
 isort:
-	isort -rc $(SRC)
+	isort $(SRC)
 
 flake: .flake
 
@@ -17,9 +17,9 @@ flake: .flake
 					  $(shell find tests -type f)
 	flake8 aiosignal tests
 	python setup.py check -rms
-	@if ! isort -c -rc aiosignal tests; then \
+	@if ! isort -c aiosignal tests; then \
 			echo "Import sort errors, run 'make isort' to fix them!"; \
-			isort --diff -rc aiosignal tests; \
+			isort --diff aiosignal tests; \
 			false; \
 	fi
 	@if ! LC_ALL=C sort -c CONTRIBUTORS.txt; then \
@@ -34,9 +34,9 @@ mypy: .flake
 	mypy aiosignal
 
 isort-check:
-	@if ! isort -rc --check-only $(SRC); then \
+	@if ! isort --check-only $(SRC); then \
 			echo "Import sort errors, run 'make isort' to fix them!!!"; \
-			isort --diff -rc $(SRC); \
+			isort --diff $(SRC); \
 			false; \
 	fi
 

@@ -32,7 +32,7 @@ jobs:
         restore-keys: |
             pip-lint-
     - name: Install dependencies
-      uses: py-actions/py-dependency-install@v2
+      uses: py-actions/py-dependency-install@v3
       with:
         path: requirements/flake.txt
     - name: Install itself
@@ -74,7 +74,7 @@ jobs:
     needs: [lint]
     strategy:
       matrix:
-        pyver: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        pyver: ['3.7', '3.8', '3.9', '3.10']
         os: [ubuntu, macos, windows]
         include:
           - pyver: pypy3
@@ -101,7 +101,7 @@ jobs:
         restore-keys: |
             pip-ci-${{ runner.os }}-${{ matrix.pyver }}-
     - name: Install dependencies
-      uses: py-actions/py-dependency-install@v2
+      uses: py-actions/py-dependency-install@v3
       with:
         path: requirements/dev.txt
     - name: Run unittests
@@ -111,7 +111,7 @@ jobs:
         python -m pytest tests -vv
         python -m coverage xml
     - name: Upload coverage
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v2.1.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./coverage.xml
@@ -145,7 +145,7 @@ jobs:
       run:
         python setup.py sdist bdist_wheel
     - name: Release
-      uses: aio-libs/create-release@v1.2.2
+      uses: aio-libs/create-release@v1.4.0
       with:
         changes_file: CHANGES.rst
         name: aiosignal
