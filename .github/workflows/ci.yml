@@ -145,7 +145,7 @@ jobs:
       run:
         python setup.py sdist bdist_wheel
     - name: Release
-      uses: aio-libs/create-release@v1.2.2
+      uses: aio-libs/create-release@v1.4.0
       with:
         changes_file: CHANGES.rst
         name: aiosignal
