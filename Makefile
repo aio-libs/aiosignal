@@ -48,10 +48,10 @@ check_changes:
 	@touch .develop
 
 test: .develop
-	@pytest -c pytest.ci.ini -q
+	@pytest -q
 
 vtest: .develop
-	@pytest -c pytest.ci.ini -s -v
+	@pytest -s -v
 
 cov cover coverage:
 	tox
