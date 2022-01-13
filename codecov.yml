@@ -1,5 +1,6 @@
+---
 coverage:
-  range: "95..100"
+  range: 95..100
 
   status:
     project: off
@@ -11,9 +12,9 @@ flags:
   configs:
     paths:
     - requirements/
-    - ".git*"
-    - "*.toml"
-    - "*.yml"
+    - .git*
+    - '*.toml'
+    - '*.yml'
   changelog:
     paths:
     - CHANGES/
@@ -21,9 +22,9 @@ flags:
   docs:
     paths:
     - docs/
-    - "*.md"
-    - "*.rst"
-    - "*.txt"
+    - '*.md'
+    - '*.rst'
+    - '*.txt'
   tests:
     paths:
     - tests/

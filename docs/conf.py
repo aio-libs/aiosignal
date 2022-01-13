@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # aiosignal documentation build configuration file, created by
 # sphinx-quickstart on Wed Mar  5 12:35:35 2014.
@@ -13,16 +12,14 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import io
 import os
 import re
-
 
 _docs_path = os.path.dirname(__file__)
 _version_path = os.path.abspath(
     os.path.join(_docs_path, "..", "aiosignal", "__init__.py")
 )
-with io.open(_version_path, "r", encoding="latin1") as fp:
+with open(_version_path, encoding="latin1") as fp:
     try:
         _version_info = re.search(
             r'^__version__ = "'
@@ -154,12 +151,17 @@ html_theme_options = {
     "badges": [
         {
             "image": "https://github.com/aio-libs/aiosignal/workflows/CI/badge.svg",
-            "target": "https://github.com/aio-libs/aiosignal/actions?query=workflow%3ACI",
+            "target": (
+                "https://github.com/aio-libs/aiosignal/" "actions?query=workflow%3ACI"
+            ),
             "height": "20",
             "alt": "GitHub CI status for master branch",
         },
         {
-            "image": "https://codecov.io/github/aio-libs/aiosignal/coverage.svg?branch=master",
+            "image": (
+                "https://codecov.io/github/aio-libs/aiosignal/"
+                "coverage.svg?branch=master"
+            ),
             "target": "https://codecov.io/github/aio-libs/aiosignal",
             "height": "20",
             "alt": "Code coverage status",
@@ -171,7 +173,10 @@ html_theme_options = {
             "alt": "Latest PyPI package version",
         },
         {
-            "image": "https://img.shields.io/discourse/topics?server=https%3A%2F%2Faio-libs.discourse.group%2F",
+            "image": (
+                "https://img.shields.io/discourse/"
+                "topics?server=https%3A%2F%2Faio-libs.discourse.group%2F"
+            ),
             "target": "https://aio-libs.discourse.group/",
             "height": "20",
             "alt": "Discourse group for io-libs",
