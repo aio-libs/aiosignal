@@ -17,7 +17,7 @@ else
 endif
 	mypy aiosignal
 
-.develop: .install-deps $(shell find aiosignal -type f) .flake check_changes mypy
+.develop: .install-deps $(shell find aiosignal -type f)
 	# pip install -e .
 	@touch .develop
 

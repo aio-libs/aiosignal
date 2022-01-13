@@ -1,15 +1,11 @@
-from typing import TypeVar
-
 from frozenlist import FrozenList
 
 __version__ = "1.2.0"
 
 __all__ = ("Signal",)
 
-_T = TypeVar("_T")
 
-
-class Signal(FrozenList[_T]):
+class Signal(FrozenList):
     """Coroutine-based signal implementation.
 
     To connect a callback to a signal, use any list method.
