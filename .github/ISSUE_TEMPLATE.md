@@ -20,5 +20,5 @@
 
 <!-- Describe the environment you have that lead to your issue.
      This includes the aiosignal version, OS and anything else that
-     is related to your case. 
+     is related to your case.
      -->

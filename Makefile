@@ -8,40 +8,14 @@ all: test
 	pip install -r requirements/dev.txt
 	@touch .install-deps
 
-isort:
-	isort $(SRC)
-
-flake: .flake
-
-.flake: .install-deps $(shell find aiosignal -type f) \
-					  $(shell find tests -type f)
-	flake8 aiosignal tests
-	python setup.py check -rms
-	@if ! isort -c aiosignal tests; then \
-			echo "Import sort errors, run 'make isort' to fix them!"; \
-			isort --diff aiosignal tests; \
-			false; \
-	fi
-	@if ! LC_ALL=C sort -c CONTRIBUTORS.txt; then \
-			echo "CONTRIBUTORS.txt sort error"; \
-	fi
-	@touch .flake
-
-flake8:
-	flake8 $(SRC)
-
-mypy: .flake
+lint:
+# CI env-var is set by GitHub actions
+ifdef CI
+	pre-commit run --all-files --show-diff-on-failure
+else
+	pre-commit run --all-files
+endif
 	mypy aiosignal
-
-isort-check:
-	@if ! isort --check-only $(SRC); then \
-			echo "Import sort errors, run 'make isort' to fix them!!!"; \
-			isort --diff $(SRC); \
-			false; \
-	fi
-
-check_changes:
-	./tools/check_changes.py
 
 .develop: .install-deps $(shell find aiosignal -type f) .flake check_changes mypy
 	# pip install -e .
@@ -98,6 +72,7 @@ doc-spelling:
 install:
 	@pip install -U 'pip'
 	@pip install -Ur requirements/dev.txt
+	@pre-commit install
 
 install-dev: .develop
 

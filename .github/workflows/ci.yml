@@ -1,17 +1,18 @@
+---
 name: CI
 
 on:
   push:
     branches:
-      - 'master'
-      - '[0-9].[0-9]+'  # matches to backport branches, e.g. 3.6
-    tags: [ 'v*' ]
+    - master
+    - '[0-9].[0-9]+'    # matches to backport branches, e.g. 3.6
+    tags: [v*]
   pull_request:
     branches:
-      - 'master'
-      - '[0-9].[0-9]+'
+    - master
+    - '[0-9].[0-9]+'
   schedule:
-    - cron:  '0 6 * * *'  # Daily 6AM UTC build
+  - cron: 0 6 * * *       # Daily 6AM UTC build
 
 
 jobs:
@@ -30,23 +31,17 @@ jobs:
         key: pip-lint-${{ hashFiles('requirements/*.txt') }}
         path: ~/.cache/pip
         restore-keys: |
-            pip-lint-
+          pip-lint-
     - name: Install dependencies
       uses: py-actions/py-dependency-install@v3
       with:
-        path: requirements/flake.txt
+        path: requirements/dev.txt
     - name: Install itself
       run: |
-        python setup.py install
-    - name: Run flake8
+        pip install .
+    - name: Run linter
       run: |
-        make flake8
-    - name: Run isort-check
-      run: |
-        make isort-check
-    - name: Run mypy checker
-      run: |
-        make mypy
+        make lint
     - name: Install spell checker
       run: |
         sudo apt install libenchant-dev
@@ -58,8 +53,8 @@ jobs:
         make doc-spelling
     - name: Prepare twine checker
       run: |
-        pip install -U twine wheel
-        python setup.py sdist bdist_wheel
+        pip install -U twine build
+        python -m build
       env:
         FROZENLIST_NO_EXTENSIONS: 1
     - name: Run twine checker
@@ -96,14 +91,14 @@ jobs:
         key: pip-ci-${{ runner.os }}-${{ matrix.pyver }}-${{ hashFiles('requirements/*.txt') }}
         path: ${{ steps.pip-cache.outputs.dir }}
         restore-keys: |
-            pip-ci-${{ runner.os }}-${{ matrix.pyver }}-
+          pip-ci-${{ runner.os }}-${{ matrix.pyver }}-
     - name: Install dependencies
       uses: py-actions/py-dependency-install@v3
       with:
         path: requirements/dev.txt
     - name: Run unittests
       env:
-        COLOR: 'yes'
+        COLOR: yes
       run: |
         python -m pytest tests -vv
         python -m coverage xml
@@ -136,11 +131,9 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v2
     - name: Install dependencies
-      run:
-        python -m pip install -U pip wheel
+      run: python -m pip install -U pip wheel
     - name: Make dists
-      run:
-        python setup.py sdist bdist_wheel
+      run: python setup.py sdist bdist_wheel
     - name: Release
       uses: aio-libs/create-release@v1.4.0
       with:
@@ -148,7 +141,7 @@ jobs:
         name: aiosignal
         github_token: ${{ secrets.GITHUB_TOKEN }}
         pypi_token: ${{ secrets.PYPI_TOKEN }}
-        artifact: ""
+        artifact: ''
         version_file: aiosignal/__init__.py
         fix_issue_regex: "\n?\\s*`#(\\d+) <https://github.com/aio-libs/aiosignal/issues/\\1>`_"
-        fix_issue_repl: " (#\\1)"
+        fix_issue_repl: ' (#\1)'
