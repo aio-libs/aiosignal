@@ -1,3 +1,2 @@
----
 queries:
 - exclude: py/unsafe-cyclic-import
