@@ -1,4 +1,4 @@
-sphinx==4.5.0
+sphinx==5.0.0
 sphinxcontrib-asyncio==0.3.0
 pygments>=2.1
 aiohttp-theme==0.1.6
