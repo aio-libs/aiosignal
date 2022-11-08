@@ -14,6 +14,20 @@ Changelog
 
 .. towncrier release notes start
 
+1.3.1 (2022-11-08)
+==================
+
+Bugfixes
+--------
+
+- Removed stray quote and comma from setup.cfg preventing PyPI from accepting a
+  release.
+  `#361 <https://github.com/aio-libs/aiosignal/issues/361>`_
+
+
+----
+
+
 1.3.0 (2022-11-08)
 ==================
 
