@@ -1,0 +1,2 @@
+Removed stray quote and comma from setup.cfg preventing PyPI from accepting a
+release.
