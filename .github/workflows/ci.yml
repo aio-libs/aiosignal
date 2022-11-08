@@ -26,13 +26,9 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.x
-    - name: Cache PyPI
-      uses: actions/cache@v3
-      with:
-        key: pip-lint-${{ hashFiles('requirements/*.txt') }}
-        path: ~/.cache/pip
-        restore-keys: |
-          pip-lint-
+        cache: pip
+        cache-dependency-path: |
+          requirements/*.txt
     - name: Install dependencies
       uses: py-actions/py-dependency-install@v3
       with:
@@ -82,18 +78,9 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.pyver }}
-    - name: Get pip cache dir
-      id: pip-cache
-      shell: bash
-      run: |
-        echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-    - name: Cache PyPI
-      uses: actions/cache@v3
-      with:
-        key: pip-ci-${{ runner.os }}-${{ matrix.pyver }}-${{ hashFiles('requirements/*.txt') }}
-        path: ${{ steps.pip-cache.outputs.dir }}
-        restore-keys: |
-          pip-ci-${{ runner.os }}-${{ matrix.pyver }}-
+        cache: pip
+        cache-dependency-path: |
+          requirements/*.txt
     - name: Install dependencies
       uses: py-actions/py-dependency-install@v3
       with:
