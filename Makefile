@@ -10,9 +10,7 @@ all: test
 
 lint:
 # CI env-var is set by GitHub actions
-ifdef CI
-	pre-commit run --all-files --show-diff-on-failure
-else
+ifndef CI
 	pre-commit run --all-files
 endif
 	mypy aiosignal
