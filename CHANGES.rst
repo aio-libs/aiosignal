@@ -14,6 +14,27 @@ Changelog
 
 .. towncrier release notes start
 
+1.3.0 (2022-11-08)
+==================
+
+Features
+--------
+
+- Switched to declarative package setup.
+  `#267 <https://github.com/aio-libs/aiosignal/issues/267>`_
+- Added support for Python 3.11.
+  `#360 <https://github.com/aio-libs/aiosignal/issues/360>`_
+
+
+Deprecations and Removals
+-------------------------
+
+- Dropped Python 3.6 support.
+  `#267 <https://github.com/aio-libs/aiosignal/issues/267>`_
+
+
+----
+
 
 1.2.0 (2021-10-16)
 ==================
