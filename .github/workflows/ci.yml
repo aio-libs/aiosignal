@@ -84,8 +84,9 @@ jobs:
         python-version: ${{ matrix.pyver }}
     - name: Get pip cache dir
       id: pip-cache
+      shell: bash
       run: |
-        echo "::set-output name=dir::$(pip cache dir)"    # - name: Cache
+        echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
     - name: Cache PyPI
       uses: actions/cache@v3
       with:
