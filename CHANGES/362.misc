@@ -1,0 +1,1 @@
+Removed unnecessary explicit requirement of `wheel` package from `pyproject.toml`.
