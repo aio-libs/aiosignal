@@ -7,33 +7,33 @@ repos:
     entry: ./tools/check_changes.py
     pass_filenames: false
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.1.0
+  rev: v4.4.0
   hooks:
   - id: check-merge-conflict
     exclude: rst$
 - repo: https://github.com/asottile/yesqa
-  rev: v1.3.0
+  rev: v1.4.0
   hooks:
   - id: yesqa
 - repo: https://github.com/Zac-HD/shed
-  rev: 0.6.0     # 0.7 does not support Python 3.7
+  rev: 0.10.8
   hooks:
   - id: shed
     args:
     - --refactor
-    - --py37-plus
+    - --py38-plus
     types_or:
     - python
     - markdown
     - rst
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.3.0
+  rev: v2.6.0
   hooks:
   - id: pretty-format-yaml
     alias: yaml
     args: [--autofix, --indent, '2']
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.1.0
+  rev: v4.4.0
   hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
@@ -44,17 +44,17 @@ repos:
   - id: check-xml
   - id: check-yaml
   - id: debug-statements
-- repo: https://github.com/pycqa/flake8
-  rev: 3.9.2
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.0.0
   hooks:
   - id: flake8
     language_version: python3
 - repo: https://github.com/pre-commit/pygrep-hooks
-  rev: v1.9.0
+  rev: v1.10.0
   hooks:
   - id: python-use-type-annotations
 - repo: https://github.com/rhysd/actionlint
-  rev: v1.6.8
+  rev: v1.6.23
   hooks:
   - id: actionlint-docker
     args:
@@ -65,7 +65,7 @@ repos:
     - -ignore
     - 'SC1004:'
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.19.2
+  rev: 0.20.0
   hooks:
   - id: check-github-actions
 ci:
