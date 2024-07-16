@@ -45,7 +45,6 @@ with open(_version_path, encoding="latin1") as fp:
 extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.intersphinx",
-    "sphinxcontrib.asyncio",
 ]
 
 
