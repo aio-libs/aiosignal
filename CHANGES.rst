@@ -33,7 +33,9 @@ Misc
 - `#362 <https://github.com/aio-libs/aiosignal/issues/362>`_
 
 
-----1.3.1 (2022-11-08)
+----
+
+1.3.1 (2022-11-08)
 ==================
 
 Bugfixes
