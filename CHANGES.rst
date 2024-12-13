@@ -14,6 +14,27 @@ Changelog
 
 .. towncrier release notes start
 
+1.3.2 (2024-12-13)
+==================
+
+Deprecations and Removals
+-------------------------
+
+- Dropped Python 3.7 support.
+  `#413 <https://github.com/aio-libs/aiosignal/issues/413>`_
+
+- Dropped Python 3.8 support.
+  `#645 <https://github.com/aio-libs/aiosignal/issues/645>`_
+
+
+Misc
+----
+
+- `#362 <https://github.com/aio-libs/aiosignal/issues/362>`_
+
+
+----
+
 1.3.1 (2022-11-08)
 ==================
 
