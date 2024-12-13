@@ -25,7 +25,7 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: 3.x
+        python-version: 3.13
         cache: pip
         cache-dependency-path: |
           requirements/*.txt
@@ -66,10 +66,9 @@ jobs:
     needs: [lint]
     strategy:
       matrix:
-        pyver: ['3.8', '3.9', '3.10', '3.11']
-        os: [ubuntu, macos, windows]
+        pyver: ['3.9', '3.10', '3.11', '3.12', '3.13']
       fail-fast: false
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
     - name: Checkout
