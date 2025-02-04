@@ -8,11 +8,4 @@ graft docs
 graft tests
 global-include *.pyi
 global-exclude *.pyc
-global-exclude *.pyd
-global-exclude *.so
-global-exclude *.lib
-global-exclude *.dll
-global-exclude *.a
-global-exclude *.obj
-exclude aiosignal.html
 prune docs/_build
