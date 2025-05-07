@@ -1,6 +1,12 @@
+[paths]
+_site-packages-to-src-mapping =
+  .
+  */lib/pypy*/site-packages
+  */lib/python*/site-packages
+  *\Lib\site-packages
+
 [run]
 branch = True
-omit = site-packages
 source =
   .
 source_pkgs =
