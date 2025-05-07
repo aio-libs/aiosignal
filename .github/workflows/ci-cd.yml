@@ -113,7 +113,7 @@ jobs:
                 file=outputs_file,
             )
             print(
-                f"wheel={whl_file_prj_base_name !s}-*-py2.py3-none-any.whl",
+                f"wheel={whl_file_prj_base_name !s}-*-py3-none-any.whl",
                 file=outputs_file,
             )
 
