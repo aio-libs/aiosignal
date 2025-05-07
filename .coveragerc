@@ -7,6 +7,7 @@ _site-packages-to-src-mapping =
 
 [run]
 branch = true
+cover_pylib = false
 relative_files = true
 source =
   .
