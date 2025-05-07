@@ -10,8 +10,7 @@ _site-packages-to-src-mapping =
   *\Lib\site-packages
 
 [report]
-# `fail_under` is set here temporarily until it can be dropped:
-fail_under = 94
+fail_under = 100
 skip_covered = true
 skip_empty = true
 show_missing = true
@@ -21,6 +20,8 @@ exclude_also =
 [run]
 branch = true
 cover_pylib = false
+omit =
+  setup.py
 parallel = true
 relative_files = true
 source =
