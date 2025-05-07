@@ -6,7 +6,7 @@ _site-packages-to-src-mapping =
   *\Lib\site-packages
 
 [run]
-branch = True
+branch = true
 relative_files = true
 source =
   .
