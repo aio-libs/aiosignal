@@ -157,12 +157,12 @@ jobs:
       uses: aio-libs/create-release@v1.6.6
       with:
         changes_file: CHANGES.rst
-        name: aiosignal
+        name: ${{ env.PROJECT_NAME }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
         pypi_token: ${{ secrets.PYPI_TOKEN }}
         artifact: ''
-        version_file: aiosignal/__init__.py
-        fix_issue_regex: "\n?\\s*`#(\\d+) <https://github.com/aio-libs/aiosignal/issues/\\1>`_"
+        version_file: ${{ env.PROJECT_NAME }}/__init__.py
+        fix_issue_regex: "\n?\\s*`#(\\d+) <https://github.com/aio-libs/${{ env.PROJECT_NAME }}/issues/\\1>`_"
         fix_issue_repl: ' (#\1)'
 
     - name: >-
