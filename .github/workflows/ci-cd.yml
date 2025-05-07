@@ -229,7 +229,8 @@ jobs:
       codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
   tests:
-    name: Tests
+    name: 🧪 Tests${{ '' }}  # nest jobs under the same sidebar category
+
     needs:
     - build
     - pre-setup  # transitive, for accessing settings
@@ -252,42 +253,65 @@ jobs:
         - 3.11
         - >-
           3.10
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: pip
-        cache-dependency-path: |
-          requirements/*.txt
-    - name: Install dependencies
-      uses: py-actions/py-dependency-install@v4
-      with:
-        path: requirements/ci-wheel.txt
-    - name: Download all the dists
-      uses: actions/download-artifact@v4
-      with:
-        name: >-
-          ${{ needs.pre-setup.outputs.dists-artifact-name }}
-        path: dist/
-    - name: Install ${{ env.PROJECT_NAME }} from the pre-built wheel
-      run: |
-        pip install dist/${{ needs.pre-setup.outputs.wheel-artifact-name }}
-    - name: Run unittests
-      run: |
-        python -m pytest tests -vv
-        python -m coverage xml
-    - name: Upload coverage
-      uses: codecov/codecov-action@v5
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage.xml
-        flags: unit
-        fail_ci_if_error: false
+        runner-vm-os:
+        - ubuntu-24.04
+        toxenv:
+        - py
+        xfail:
+        - false
+
+    uses: tox-dev/workflow/.github/workflows/reusable-tox.yml@89de3c6be3cd179adf71e28aa4ac5bef60804209  # yamllint disable-line rule:line-length
+    with:
+      built-wheel-names: >-
+        ${{ needs.pre-setup.outputs.wheel-artifact-name }}
+      cache-key-for-dependency-files: >-
+        ${{ needs.pre-setup.outputs.cache-key-for-dep-files }}
+      check-name: >-
+        🧪 🐍${{
+          matrix.python-version
+        }} @ ${{
+          matrix.runner-vm-os
+        }}
+      dists-artifact-name: >-
+        ${{ needs.pre-setup.outputs.dists-artifact-name }}
+      job-dependencies-context: >-  # context for hooks
+        ${{ toJSON(needs) }}
+      python-version: >-
+        ${{ matrix.python-version }}
+      require-successful-codecov-uploads: >-
+        ${{
+          toJSON(
+          needs.pre-setup.outputs.upstream-repository-id
+          == github.repository_id
+          )
+        }}
+      runner-vm-os: >-
+        ${{ matrix.runner-vm-os }}
+      source-tarball-name: >-
+        ${{ needs.pre-setup.outputs.sdist-artifact-name }}
+      timeout-minutes: 2
+      toxenv: >-
+        ${{ matrix.toxenv }}
+      # tox-provision-args: >-
+      #   --force-dep '...'
+      tox-run-posargs: >-
+        --cov-report=xml:.tox/.tmp/.test-results/pytest-${{
+          matrix.python-version
+        }}/cobertura.xml
+        --junitxml=.tox/.tmp/.test-results/pytest-${{
+          matrix.python-version
+        }}/test.xml
+      tox-rerun-posargs: >-
+        --no-cov
+        -vvvvv
+        --lf
+      xfail: >-
+        ${{
+          fromJSON(needs.pre-setup.outputs.is-yolo-mode)
+          || fromJSON(matrix.xfail)
+        }}
+    secrets:
+      codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
   test-summary:
     name: Test matrix status
