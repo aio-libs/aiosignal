@@ -1,4 +1,7 @@
 [run]
 branch = True
-source = aiosignal
 omit = site-packages
+source =
+  .
+source_pkgs =
+  aiosignal
