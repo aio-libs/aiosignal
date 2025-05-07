@@ -74,7 +74,7 @@ jobs:
         python -m build
     - name: Run twine checker
       run: |
-        twine check dist/*
+        twine check --strict dist/*
     - name: Make sure that CONTRIBUTORS.txt remains sorted
       run: |
         LC_ALL=C sort -c CONTRIBUTORS.txt
