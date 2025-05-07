@@ -81,6 +81,7 @@ jobs:
       sdist-artifact-name: ${{ steps.artifact-name.outputs.sdist }}
       wheel-artifact-name: ${{ steps.artifact-name.outputs.wheel }}
       upstream-repository-id: ${{ env.UPSTREAM_REPOSITORY_ID }}
+      is-debug-mode: ${{ toJSON(runner.debug == '1') }}
 
     steps:
     - name: Switch to using Python 3.11 by default
@@ -234,6 +235,12 @@ jobs:
     - pre-setup  # transitive, for accessing settings
 
     strategy:
+      fail-fast: >-  # ${{ runner.debug }} is unavailable in this context
+        ${{
+          fromJSON(needs.pre-setup.outputs.is-debug-mode)
+          && false
+          || true
+        }}
       matrix:
         python-version:
         - 3.9
@@ -242,7 +249,6 @@ jobs:
         - 3.11
         - 3.12
         - 3.13
-      fail-fast: false
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
