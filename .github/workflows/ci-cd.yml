@@ -306,10 +306,7 @@ jobs:
         -vvvvv
         --lf
       xfail: >-
-        ${{
-          fromJSON(needs.pre-setup.outputs.is-yolo-mode)
-          || fromJSON(matrix.xfail)
-        }}
+        ${{ matrix.xfail }}
     secrets:
       codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
