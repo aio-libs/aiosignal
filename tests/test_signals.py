@@ -136,7 +136,7 @@ async def test_cannot_send_non_frozen_signal(owner: Owner) -> None:
     callback_mock = mock.Mock()
 
     async def callback(**kwargs):
-        callback_mock(**kwargs)
+        callback_mock(**kwargs)  # pragma: no cover  # mustn't be called
 
     signal.append(callback)
 
