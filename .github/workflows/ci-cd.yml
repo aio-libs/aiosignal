@@ -138,6 +138,96 @@ jobs:
       xfail: false
 
   lint:
+    name: 🧹 Linters${{ '' }}  # nest jobs under the same sidebar category
+    needs:
+    - build
+    - pre-setup  # transitive, for accessing settings
+
+    strategy:
+      matrix:
+        runner-vm-os:
+        - ubuntu-latest
+        python-version:
+        - 3.13
+        toxenv:
+        - pre-commit
+        # - metadata-validation
+        # - build-docs
+        # - codelinter-docs
+        # - coverage-docs
+        # - doctest-docs
+        # - linkcheck-docs
+        # - spellcheck-docs
+        xfail:
+        - false
+      fail-fast: false
+
+    uses: tox-dev/workflow/.github/workflows/reusable-tox.yml@89de3c6be3cd179adf71e28aa4ac5bef60804209  # yamllint disable-line rule:line-length
+    with:
+      built-wheel-names: >-
+        ${{
+          matrix.toxenv == 'metadata-validation'
+          && needs.pre-setup.outputs.wheel-artifact-name
+          || ''
+        }}
+      cache-key-for-dependency-files: >-
+        ${{ needs.pre-setup.outputs.cache-key-for-dep-files }}
+      checkout-src-git-fetch-depth: >-
+        ${{
+          fromJSON(needs.pre-setup.outputs.release-requested)
+          && 1
+          || 0
+        }}
+      dists-artifact-name: >-
+        ${{ needs.pre-setup.outputs.dists-artifact-name }}
+      post-toxenv-preparation-command: >-
+        ${{
+          matrix.toxenv == 'pre-commit'
+          && 'python -Im pre_commit install-hooks'
+          || ''
+        }}
+      python-version: >-
+        ${{ matrix.python-version }}
+      require-successful-codecov-uploads: >-
+        ${{
+          toJSON(
+          needs.pre-setup.outputs.upstream-repository-id
+          == github.repository_id
+          )
+        }}
+      runner-vm-os: >-
+        ${{ matrix.runner-vm-os }}
+      # NOTE: `pre-commit --show-diff-on-failure` and
+      # NOTE: `sphinxcontrib-spellcheck` with Git authors allowlist enabled
+      # NOTE: both depend on the presence of a Git repository.
+      source-tarball-name: >-
+        ${{
+          !contains(
+            fromJSON('["pre-commit", "spellcheck-docs"]'),
+            matrix.toxenv
+          )
+          && needs.pre-setup.outputs.sdist-artifact-name
+          || ''
+        }}
+      # NOTE: `pre-commit` and `sphinxcontrib-spellcheck` both depend on Git.
+      # NOTE: They may get slower due to network I/O, hence bigger timeout.
+      timeout-minutes: >-
+        ${{
+          !contains(
+            fromJSON('["pre-commit", "spellcheck-docs"]'),
+            matrix.toxenv
+          )
+          && 4
+          || 2
+        }}
+      toxenv: >-
+        ${{ matrix.toxenv }}
+      xfail: >-
+        ${{ matrix.xfail }}
+    secrets:
+      codecov-token: ${{ secrets.CODECOV_TOKEN }}
+
+  retro-lint:
     name: Linter
     needs:
     - build
@@ -233,14 +323,17 @@ jobs:
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage.xml
+        files: ./coverage.xml
         flags: unit
         fail_ci_if_error: false
 
   test-summary:
     name: Test matrix status
     runs-on: ubuntu-latest
-    needs: [lint, test]
+    needs:
+    - lint
+    - retro-lint
+    - test
     if: always()
     steps:
     - name: Decide whether the needed jobs succeeded or failed

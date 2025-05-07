@@ -1,3 +1,6 @@
+name: sentinel
+description: sentinel
+
 outputs:
   cache-key-for-dep-files:
     description: >-
