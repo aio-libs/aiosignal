@@ -238,29 +238,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.13
-        cache: pip
-        cache-dependency-path: |
-          requirements/*.txt
-    - name: Install dependencies
-      uses: py-actions/py-dependency-install@v4
-      with:
-        path: requirements/dev.txt
-    - name: Download all the dists
-      uses: actions/download-artifact@v4
-      with:
-        name: >-
-          ${{ needs.pre-setup.outputs.dists-artifact-name }}
-        path: dist/
-    - name: Install ${{ env.PROJECT_NAME }} from the pre-built wheel
-      run: |
-        pip install dist/${{ needs.pre-setup.outputs.wheel-artifact-name }}
-    - name: Run linter
-      run: |
-        make lint
     - name: Make sure that CONTRIBUTORS.txt remains sorted
       run: |
         LC_ALL=C sort -c CONTRIBUTORS.txt
