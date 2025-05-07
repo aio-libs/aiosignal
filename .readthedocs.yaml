@@ -1,0 +1,25 @@
+version: 2
+
+build:
+  os: ubuntu-24.04
+  tools:
+    python: >-  # has to be parsed as a YAML string
+      3.13
+  commands:
+  - >-
+    PYTHONWARNINGS=error
+    python3 -Im venv "${READTHEDOCS_VIRTUALENV_PATH}"
+  - >-
+    PYTHONWARNINGS=error
+    "${READTHEDOCS_VIRTUALENV_PATH}"/bin/python -Im
+    pip install tox
+  - >-
+    PYTHONWARNINGS=error
+    "${READTHEDOCS_VIRTUALENV_PATH}"/bin/python -Im
+    tox -e build-docs --notest -vvvvv
+  - >-
+    PYTHONWARNINGS=error
+    "${READTHEDOCS_VIRTUALENV_PATH}"/bin/python -Im
+    tox -e build-docs --skip-pkg-install -q
+    --
+    "${READTHEDOCS_OUTPUT}"/html -b dirhtml

@@ -152,7 +152,7 @@ jobs:
         toxenv:
         - pre-commit
         - metadata-validation
-        # - build-docs
+        - build-docs
         # - codelinter-docs
         # - coverage-docs
         # - doctest-docs
