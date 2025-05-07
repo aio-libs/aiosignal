@@ -102,8 +102,6 @@ jobs:
       with:
         path: requirements/ci-bot.txt
     - name: Run unittests
-      env:
-        COLOR: yes
       run: |
         python -m pytest tests -vv
         python -m coverage xml
