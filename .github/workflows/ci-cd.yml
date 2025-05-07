@@ -157,7 +157,7 @@ jobs:
         # - coverage-docs
         # - doctest-docs
         # - linkcheck-docs
-        # - spellcheck-docs
+        - spellcheck-docs
         xfail:
         - false
       fail-fast: false
@@ -261,15 +261,6 @@ jobs:
     - name: Run linter
       run: |
         make lint
-    - name: Install spell checker
-      run: |
-        sudo apt install libenchant-2-dev
-        pip install -r requirements/doc-spelling.txt
-        pip install -r requirements/towncrier.txt
-    - name: Run docs spelling
-      run: |
-        towncrier build --yes --version 99.99.99
-        make doc-spelling
     - name: Make sure that CONTRIBUTORS.txt remains sorted
       run: |
         LC_ALL=C sort -c CONTRIBUTORS.txt
