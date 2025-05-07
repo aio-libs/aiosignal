@@ -8,6 +8,16 @@ on:
     tags: [v*]
   pull_request:
 
+concurrency:
+  group: >-
+    ${{
+        github.workflow
+    }}-${{
+        github.ref_type
+    }}-${{
+        github.event.pull_request.number || github.sha
+    }}
+  cancel-in-progress: true
 
 env:
   COLOR: >-  # Supposedly, pytest or coveragepy use this
