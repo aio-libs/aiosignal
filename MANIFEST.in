@@ -3,8 +3,10 @@ include CHANGES.rst
 include README.rst
 include CONTRIBUTORS.txt
 include Makefile
+include tox.ini
 graft aiosignal
 graft docs
+graft requirements
 graft tests
 global-include *.pyi
 global-exclude *.pyc
