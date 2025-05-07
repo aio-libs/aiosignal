@@ -151,7 +151,7 @@ jobs:
         - 3.13
         toxenv:
         - pre-commit
-        # - metadata-validation
+        - metadata-validation
         # - build-docs
         # - codelinter-docs
         # - coverage-docs
@@ -270,12 +270,6 @@ jobs:
       run: |
         towncrier build --yes --version 99.99.99
         make doc-spelling
-    - name: Prepare twine checker
-      run: |
-        pip install -U twine
-    - name: Run twine checker
-      run: |
-        twine check --strict dist/*
     - name: Make sure that CONTRIBUTORS.txt remains sorted
       run: |
         LC_ALL=C sort -c CONTRIBUTORS.txt
