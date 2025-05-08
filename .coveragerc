@@ -4,10 +4,10 @@ skip_covered = false
 
 [paths]
 _site-packages-to-src-mapping =
-  aiosignal
-  */lib/pypy*/site-packages/aiosignal
-  */lib/python*/site-packages/aiosignal
-  *\Lib\site-packages/aiosignal
+  .
+  */lib/pypy*/site-packages
+  */lib/python*/site-packages
+  *\Lib\site-packages
 
 [report]
 fail_under = 100
