@@ -6,8 +6,8 @@ aiosignal
    :target: https://github.com/aio-libs/aiosignal/actions?query=workflow%3ACI
    :alt: GitHub status for master branch
 
-.. image:: https://codecov.io/gh/aio-libs/aiosignal/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/aio-libs/aiosignal
+.. image:: https://codecov.io/gh/aio-libs/aiosignal/branch/master/graph/badge.svg?flag=pytest
+   :target: https://codecov.io/gh/aio-libs/aiosignal?flags[0]=pytest
    :alt: codecov.io status for master branch
 
 .. image:: https://badge.fury.io/py/aiosignal.svg
