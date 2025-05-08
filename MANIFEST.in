@@ -3,6 +3,7 @@ include CHANGES.rst
 include README.rst
 include CONTRIBUTORS.txt
 include Makefile
+include pytest.ini
 include tox.ini
 graft aiosignal
 graft docs
