@@ -10,6 +10,7 @@ else:
 
 P = ParamSpec("P")
 T = typing.TypeVar("T")
+_O = typing.TypeVar("_O")
 AsyncFunc = typing.Callable[P, typing.Awaitable[T]]
 
 __version__ = "1.3.2"
@@ -17,7 +18,7 @@ __version__ = "1.3.2"
 __all__ = ("Signal",)
 
 
-class Signal(FrozenList[AsyncFunc[P, T]]):
+class Signal(FrozenList[AsyncFunc[P, T]], typing.Generic[P, T, _O]):
     """Coroutine-based signal implementation.
 
     To connect a callback to a signal, use any list method.
@@ -28,16 +29,16 @@ class Signal(FrozenList[AsyncFunc[P, T]]):
 
     __slots__ = ("_owner",)
 
-    def __init__(self, owner):
+    def __init__(self, owner:_O):
         super().__init__()
         self._owner = owner
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<Signal owner={}, frozen={}, {!r}>".format(
             self._owner, self.frozen, list(self)
         )
 
-    async def send(self, *args:P.args, **kwargs:P.kwargs):
+    async def send(self, *args:P.args, **kwargs:P.kwargs) -> None:
         """
         Sends data to all registered receivers.
         """
@@ -45,9 +46,9 @@ class Signal(FrozenList[AsyncFunc[P, T]]):
             raise RuntimeError("Cannot send non-frozen signal.")
 
         for receiver in self:
-            await receiver(*args, **kwargs)  # type: ignore
+            await receiver(*args, **kwargs)
 
-    def __call__(self, func: AsyncFunc[P, T]): # type: ignore
+    def __call__(self, func: AsyncFunc[P, T]) -> AsyncFunc[P, T]:
         """wraps a callback function to the signal."""
         self.append(func)
         return func
