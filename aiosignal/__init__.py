@@ -40,4 +40,3 @@ class Signal(FrozenList[AsyncFunc[P, T]]):
         """wraps a callback function to the signal."""
         self.append(func)
         return func
-
