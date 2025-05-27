@@ -1,5 +1,16 @@
+import sys
+import typing
+
 from frozenlist import FrozenList
-from typedefs import AsyncFunc, P , T
+
+if sys.version_info >= (3, 10):
+    from typing import ParamSpec
+else:
+    from typing_extensions import ParamSpec
+
+P = ParamSpec("P")
+T = typing.TypeVar("T")
+AsyncFunc = typing.Callable[P, typing.Awaitable[T]]
 
 __version__ = "1.3.2"
 
@@ -16,7 +27,7 @@ class Signal(FrozenList[AsyncFunc[P, T]]):
     """
 
     __slots__ = ("_owner",)
-    # TODO: Pass a Generic Parameter to the owner
+
     def __init__(self, owner):
         super().__init__()
         self._owner = owner
@@ -36,7 +47,7 @@ class Signal(FrozenList[AsyncFunc[P, T]]):
         for receiver in self:
             await receiver(*args, **kwargs)  # type: ignore
 
-    def __call__(self, func: AsyncFunc[P, T]):
+    def __call__(self, func: AsyncFunc[P, T]): # type: ignore
         """wraps a callback function to the signal."""
         self.append(func)
         return func
