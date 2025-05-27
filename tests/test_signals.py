@@ -158,3 +158,17 @@ def test_repr(owner: Owner) -> None:
         )
         is not None
     )
+
+@pytest.mark.asyncio
+async def test_decorator_callback_dispatch_args_kwargs(owner: Owner):
+    signal = Signal(owner)
+    args = {"a", "b"}
+    kwargs = {"foo": 1, "bar": 2}
+
+    callback_mock = mock.Mock()
+
+    @signal
+    async def callback(*args, **kwargs):
+        callback_mock(*args, **kwargs)
+
+    await signal.send(*args, **kwargs)
