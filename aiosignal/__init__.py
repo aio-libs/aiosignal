@@ -34,3 +34,8 @@ class Signal(FrozenList):
 
         for receiver in self:
             await receiver(*args, **kwargs)  # type: ignore
+
+    def __call__(self, func):
+        """appends a callback function to the signal."""
+        self.append(func)
+        return func
