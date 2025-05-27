@@ -171,4 +171,5 @@ async def test_decorator_callback_dispatch_args_kwargs(owner: Owner):
     async def callback(*args, **kwargs):
         callback_mock(*args, **kwargs)
 
+    signal.freeze()
     await signal.send(*args, **kwargs)
