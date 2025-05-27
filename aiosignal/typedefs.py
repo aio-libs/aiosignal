@@ -1,4 +1,4 @@
-import sys 
+import sys
 import typing
 
 if sys.version_info >= (3, 10):
@@ -9,4 +9,3 @@ else:
 P = ParamSpec("P")
 T = typing.TypeVar("T")
 AsyncFunc = typing.Callable[P, typing.Coroutine[T]]
-
