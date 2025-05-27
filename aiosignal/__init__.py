@@ -1,11 +1,12 @@
 from frozenlist import FrozenList
+from typedefs import AsyncFunc, P , T
 
 __version__ = "1.3.2"
 
 __all__ = ("Signal",)
 
 
-class Signal(FrozenList):
+class Signal(FrozenList[AsyncFunc[P, T]]):
     """Coroutine-based signal implementation.
 
     To connect a callback to a signal, use any list method.
@@ -15,7 +16,7 @@ class Signal(FrozenList):
     """
 
     __slots__ = ("_owner",)
-
+    # TODO: Pass a Generic Parameter to the owner
     def __init__(self, owner):
         super().__init__()
         self._owner = owner
@@ -25,7 +26,7 @@ class Signal(FrozenList):
             self._owner, self.frozen, list(self)
         )
 
-    async def send(self, *args, **kwargs):
+    async def send(self, *args:P.args, **kwargs:P.kwargs):
         """
         Sends data to all registered receivers.
         """
@@ -35,7 +36,8 @@ class Signal(FrozenList):
         for receiver in self:
             await receiver(*args, **kwargs)  # type: ignore
 
-    def __call__(self, func):
-        """appends a callback function to the signal."""
+    def __call__(self, func: AsyncFunc[P, T]):
+        """wraps a callback function to the signal."""
         self.append(func)
         return func
+
