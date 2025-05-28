@@ -47,7 +47,7 @@ class Signal(FrozenList[_AsyncFunc[_P, _T]]):
         for receiver in self:
             await receiver(*args, **kwargs)
 
-    def __call__(self, func: AsyncFunc[_P, _T]) -> AsyncFunc[_P, _T]:
+    def __call__(self, func: _AsyncFunc[_P, _T]) -> _AsyncFunc[_P, _T]:
         """wraps a callback function to the signal."""
         self.append(func)
         return func
