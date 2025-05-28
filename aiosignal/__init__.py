@@ -8,16 +8,16 @@ if sys.version_info >= (3, 10):
 else:
     from typing_extensions import ParamSpec
 
-P = ParamSpec("P")
-T = typing.TypeVar("T")
-AsyncFunc = typing.Callable[P, typing.Awaitable[T]]
+_P = ParamSpec("_P")
+_T = typing.TypeVar("_T")
+AsyncFunc = typing.Callable[_P, typing.Awaitable[_T]]
 
 __version__ = "1.3.2"
 
 __all__ = ("Signal",)
 
 
-class Signal(FrozenList[AsyncFunc[P, T]]):
+class Signal(FrozenList[_AsyncFunc[_P, _T]]):
     """Coroutine-based signal implementation.
 
     To connect a callback to a signal, use any list method.
@@ -47,7 +47,7 @@ class Signal(FrozenList[AsyncFunc[P, T]]):
         for receiver in self:
             await receiver(*args, **kwargs)
 
-    def __call__(self, func: AsyncFunc[P, T]) -> AsyncFunc[P, T]:
+    def __call__(self, func: AsyncFunc[_P, _T]) -> AsyncFunc[_P, _T]:
         """wraps a callback function to the signal."""
         self.append(func)
         return func
