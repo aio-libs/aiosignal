@@ -29,7 +29,7 @@ class Signal(FrozenList[AsyncFunc[P, T]], typing.Generic[P, T, _O]):
 
     __slots__ = ("_owner",)
 
-    def __init__(self, owner:_O):
+    def __init__(self, owner: object):
         super().__init__()
         self._owner = owner
 
