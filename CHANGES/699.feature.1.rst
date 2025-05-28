@@ -1,0 +1,1 @@
+Added ParamSpec, Generic Variables and `__call__` functions to aiosignal & Removed the stubfile. -- by :user Vizonex:
