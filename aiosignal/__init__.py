@@ -10,7 +10,7 @@ else:
 
 _P = ParamSpec("_P")
 _T = typing.TypeVar("_T")
-AsyncFunc = typing.Callable[_P, typing.Awaitable[_T]]
+_AsyncFunc = typing.Callable[_P, typing.Awaitable[_T]]
 
 __version__ = "1.3.2"
 
