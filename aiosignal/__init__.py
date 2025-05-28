@@ -37,7 +37,7 @@ class Signal(FrozenList[AsyncFunc[P, T]]):
             self._owner, self.frozen, list(self)
         )
 
-    async def send(self, *args:P.args, **kwargs:P.kwargs) -> None:
+    async def send(self, *args: P.args, **kwargs: P.kwargs) -> None:
         """
         Sends data to all registered receivers.
         """
