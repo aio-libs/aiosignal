@@ -10,7 +10,6 @@ else:
 
 P = ParamSpec("P")
 T = typing.TypeVar("T")
-_O = typing.TypeVar("_O")
 AsyncFunc = typing.Callable[P, typing.Awaitable[T]]
 
 __version__ = "1.3.2"
@@ -18,7 +17,7 @@ __version__ = "1.3.2"
 __all__ = ("Signal",)
 
 
-class Signal(FrozenList[AsyncFunc[P, T]], typing.Generic[P, T, _O]):
+class Signal(FrozenList[AsyncFunc[P, T]]):
     """Coroutine-based signal implementation.
 
     To connect a callback to a signal, use any list method.
