@@ -160,7 +160,7 @@ def test_repr(owner: Owner) -> None:
     )
 
 @pytest.mark.asyncio
-async def test_decorator_callback_dispatch_args_kwargs(owner: Owner):
+async def test_decorator_callback_dispatch_args_kwargs(owner: Owner) -> None:
     signal = Signal(owner)
     args = {"a", "b"}
     kwargs = {"foo": 1, "bar": 2}
@@ -168,7 +168,7 @@ async def test_decorator_callback_dispatch_args_kwargs(owner: Owner):
     callback_mock = mock.Mock()
 
     @signal
-    async def callback(*args, **kwargs):
+    async def callback(*args: object, **kwargs: object) -> None:
         callback_mock(*args, **kwargs)
 
     signal.freeze()
