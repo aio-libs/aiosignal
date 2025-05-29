@@ -1,1 +1,1 @@
-Added optional library ``typing-extensions`` under Python 3.9 runtime or older -- by ``@Vizonex``.
+``typing-extensions`` is now a required dependency for Python 3.9 -- by ``@Vizonex``.
