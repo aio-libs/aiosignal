@@ -1,5 +1,5 @@
 import sys
-import typing
+from typing import Awaitable, Callable, TypeVar
 
 from frozenlist import FrozenList
 
@@ -9,8 +9,8 @@ else:
     from typing_extensions import ParamSpec
 
 _P = ParamSpec("_P")
-_T = typing.TypeVar("_T")
-_AsyncFunc = typing.Callable[_P, typing.Awaitable[_T]]
+_T = TypeVar("_T")
+_AsyncFunc = Callable[_P, Awaitable[_T]]
 
 __version__ = "1.3.2"
 
@@ -48,6 +48,6 @@ class Signal(FrozenList[_AsyncFunc[_P, _T]]):
             await receiver(*args, **kwargs)
 
     def __call__(self, func: _AsyncFunc[_P, _T]) -> _AsyncFunc[_P, _T]:
-        """wraps a callback function to the signal."""
+        """Decorator to add a function to this Signal."""
         self.append(func)
         return func
