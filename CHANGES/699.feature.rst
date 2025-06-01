@@ -1,0 +1,4 @@
+Improved type safety by allowing callback parameters to be type checked (``typing-extensions`` is now required for Python 3.9).
+
+Added decorator functionality to ``Signal`` as a convenient way to add a callback
+-- by ``@Vizonex``.

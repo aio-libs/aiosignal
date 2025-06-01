@@ -111,34 +111,6 @@ repos:
     - --lineprecision-report=.tox/.tmp/.test-results/mypy--py-3.9
     - --txt-report=.tox/.tmp/.mypy/python-3.9
     pass_filenames: false
-
-- repo: local
-  hooks:
-  - id: stubtest
-    name: MyPy stubtest
-    additional_dependencies:
-    - frozenlist  # runtime dependency
-    - mypy == 1.14.1
-    language: python
-    entry: env PYTHONPATH=. stubtest
-    args:
-    - aiosignal
-    - --mypy-config-file=.mypy.ini
-    pass_filenames: false
-    types_or:
-    - python
-    - text
-    files: >-
-      (?x)
-      ^
-        (
-          .*\.pyi?
-          |
-          \.mypy\.ini
-          |
-          aiosignal/py\.typed
-        )
-      $
 ci:
   skip:
   - actionlint-docker
