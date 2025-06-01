@@ -31,7 +31,7 @@ async def test_function_signal_dispatch_kwargs(owner: Owner) -> None:
 
     callback_mock = mock.Mock()
 
-    async def callback(**kwargs):
+    async def callback(**kwargs: object) -> None:
         callback_mock(**kwargs)
 
     signal.append(callback)
