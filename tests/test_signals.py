@@ -16,7 +16,6 @@ def owner() -> Owner:
     return Owner()
 
 
-@pytest.mark.asyncio
 async def test_add_signal_handler_not_a_callable(owner: Owner) -> None:
     callback = True
     signal = Signal(owner)
@@ -26,7 +25,6 @@ async def test_add_signal_handler_not_a_callable(owner: Owner) -> None:
         await signal.send()
 
 
-@pytest.mark.asyncio
 async def test_function_signal_dispatch_kwargs(owner: Owner) -> None:
     signal = Signal(owner)
     kwargs = {"foo": 1, "bar": 2}
@@ -43,7 +41,6 @@ async def test_function_signal_dispatch_kwargs(owner: Owner) -> None:
     callback_mock.assert_called_once_with(**kwargs)
 
 
-@pytest.mark.asyncio
 async def test_function_signal_dispatch_args_kwargs(owner: Owner) -> None:
     signal = Signal(owner)
     args = {"a", "b"}
@@ -61,7 +58,6 @@ async def test_function_signal_dispatch_args_kwargs(owner: Owner) -> None:
     callback_mock.assert_called_once_with(*args, **kwargs)
 
 
-@pytest.mark.asyncio
 async def test_non_coroutine(owner: Owner) -> None:
     signal = Signal(owner)
     kwargs = {"foo": 1, "bar": 2}
@@ -129,7 +125,6 @@ def test_cannot_delitem_in_frozen_signal(owner: Owner) -> None:
     assert list(signal) == [m1]
 
 
-@pytest.mark.asyncio
 async def test_cannot_send_non_frozen_signal(owner: Owner) -> None:
     signal = Signal(owner)
 
@@ -159,7 +154,6 @@ def test_repr(owner: Owner) -> None:
         is not None
     )
 
-@pytest.mark.asyncio
 async def test_decorator_callback_dispatch_args_kwargs(owner: Owner) -> None:
     signal = Signal(owner)
     args = {"a", "b"}
