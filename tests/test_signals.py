@@ -167,3 +167,49 @@ async def test_decorator_callback_dispatch_args_kwargs(owner: Owner) -> None:
 
     signal.freeze()
     await signal.send(*args, **kwargs)
+
+
+
+async def test_paramspec_argument_passing_from_function(owner: Owner):
+    
+    @signal_func
+    async def defined_signal(foo:int, bar:int):...
+
+    assert defined_signal == Signal, "Signal did not pass"
+
+    signal = defined_signal(owner)
+    args = {"a", "b"}
+    kwargs = {"foo": 1, "bar": 2}
+
+    callback_mock = mock.Mock()
+
+    @signal
+    async def callback(*args: object, **kwargs: object) -> None:
+        callback_mock(*args, **kwargs)
+
+    signal.freeze()
+    await signal.send(*args, **kwargs)    
+
+
+async def test_paramspec_argument_passing_from_protocol(owner: Owner):
+    # Typehinting should not fail, even if were bound to not 
+    # having Self in python 3.11...
+    class MySignalProtocol(Protocol):
+        @signal_method
+        def __call__(self, foo: int, bar: int) -> None:...
+    
+    # Casting Signals from protocol is one of the methods of type-casting
+    # What the signal is...
+    signal = cast(MySignalProtocol, Signal)(owner)
+    args = {"a", "b"}
+    kwargs = {"foo": 1, "bar": 2}
+
+    callback_mock = mock.Mock()
+
+    @signal
+    async def callback(*args: object, **kwargs: object) -> None:
+        callback_mock(*args, **kwargs)
+
+    signal.freeze()
+    await signal.send(*args, **kwargs)
+
