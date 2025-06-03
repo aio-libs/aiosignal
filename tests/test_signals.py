@@ -1,9 +1,11 @@
 import re
 from unittest import mock
+from unittest import mock
+from typing import Protocol, cast
 
 import pytest
 
-from aiosignal import Signal
+from aiosignal import Signal, signal_func, signal_method
 
 
 class Owner:
@@ -169,11 +171,10 @@ async def test_decorator_callback_dispatch_args_kwargs(owner: Owner) -> None:
     await signal.send(*args, **kwargs)
 
 
-
 async def test_paramspec_argument_passing_from_function(owner: Owner):
 
     @signal_func
-    async def defined_signal(foo:int, bar:int):...
+    async def defined_signal(foo: int, bar: int): ...
 
     assert defined_signal == Signal, "Signal did not pass"
 
@@ -192,11 +193,10 @@ async def test_paramspec_argument_passing_from_function(owner: Owner):
 
 
 async def test_paramspec_argument_passing_from_protocol(owner: Owner):
-    # Typehinting should not fail, even if were bound to not
-    # having Self in python 3.11...
+
     class MySignalProtocol(Protocol):
         @signal_method
-        def __call__(self, foo: int, bar: int) -> None:...
+        def __call__(self, foo: int, bar: int) -> None: ...
 
     # Casting Signals from protocol is one of the methods of type-casting
     # What the signal is...
