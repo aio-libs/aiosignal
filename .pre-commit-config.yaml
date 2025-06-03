@@ -61,7 +61,7 @@ repos:
   - id: check-github-actions
 
 - repo: https://github.com/pre-commit/mirrors-mypy.git
-  rev: v1.14.1
+  rev: v1.16.0
   hooks:
   - id: mypy
     alias: mypy-py313
@@ -69,6 +69,7 @@ repos:
     additional_dependencies:
     - frozenlist  # runtime dependency
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
+    - pytest
     args:
     - --python-version=3.13
     - --any-exprs-report=.tox/.tmp/.test-results/mypy--py-3.13
@@ -85,6 +86,7 @@ repos:
     additional_dependencies:
     - frozenlist  # runtime dependency
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
+    - pytest
     args:
     - --python-version=3.11
     - --any-exprs-report=.tox/.tmp/.test-results/mypy--py-3.11
@@ -101,6 +103,7 @@ repos:
     additional_dependencies:
     - frozenlist  # runtime dependency
     - lxml  # dep of `--txt-report`, `--cobertura-xml-report` & `--html-report`
+    - pytest
     args:
     - --python-version=3.9
     - --any-exprs-report=.tox/.tmp/.test-results/mypy--py-3.9
