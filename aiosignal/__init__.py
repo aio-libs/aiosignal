@@ -7,11 +7,7 @@ if sys.version_info >= (3, 10):
 else:
     from typing_extensions import ParamSpec, Concatenate
 
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
-
+_Self = TypeVar("_Self", contravariant=True)
 _P = ParamSpec("_P")
 _T = TypeVar("_T", contravariant=True)
 _AsyncFunc = Callable[_P, Awaitable[_T]]
@@ -83,7 +79,7 @@ def signal_func(_: _AsyncFunc[_P, None]) -> type[Signal[_P, None]]:
     return Signal
 
 
-def signal_method(_: _AsyncFunc[Concatenate[Self, _P], None]) -> type[Signal[_P, None]]:
+def signal_method(_: _AsyncFunc[Concatenate[_Self, _P], None]) -> type[Signal[_P, None]]:
     """Helper that typehints a class method as a signal
     This could help assist in creating Protocol Types that can
     define the creation of an object
