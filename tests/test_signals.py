@@ -1,6 +1,5 @@
 import re
 from unittest import mock
-from unittest import mock
 from typing import Protocol, cast
 
 import pytest
