@@ -73,7 +73,7 @@ def signal_func(_: _AsyncFunc[_P, None]) -> type[Signal[_P, None]]:
         event = my_signal(None)
 
         # Now we can create helpuful callbacks with
-        # helpful parameters to help us if were stuck...
+        # helpful parameter hints to help us if were stuck...
 
         @event
         async def on_my_event(a:int, b:int):
@@ -101,7 +101,7 @@ def signal_method(_: _AsyncFunc[Concatenate[Self, _P], None]) -> type[Signal[_P,
 
         MySignal: MySignalProtocol[dict, int] = Signal
 
-        # Signal is now been typehinted via protocol
+        # Signal has now been typehinted via protocol
         # pyright or other ides should be able to
         # identify it as:
         #   (owner:object) -> Signal[(a: dict, b: int), None]
