@@ -1,6 +1,5 @@
 import sys
-from typing import Awaitable, Callable, TypeVar, Type
-from abc import ABCMeta
+from typing import Awaitable, Callable, TypeVar
 from frozenlist import FrozenList
 
 if sys.version_info >= (3, 10):
