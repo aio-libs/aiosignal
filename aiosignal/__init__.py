@@ -59,7 +59,7 @@ class Signal(FrozenList[_AsyncFunc[_P, _T]]):
 
 
 def signal_func(_: _AsyncFunc[_P, None]) -> type[Signal[_P, None]]:
-    """overrides a function to define a function as a 
+    """overrides a function to define a function as a
     signal that can be defined with typehinted parameters::
 
         from aiosignal import signal_func
@@ -67,13 +67,13 @@ def signal_func(_: _AsyncFunc[_P, None]) -> type[Signal[_P, None]]:
         @signal_func
         async def my_signal(a:int, b:int) -> None:...
 
-        # my_signal has been transformed to a Signal 
-        # and it should now be typehinted as: 
+        # my_signal has been transformed to a Signal
+        # and it should now be typehinted as:
         # (owner: object) -> Signal[(a: int, b: int), None]
-         
+
         event = my_signal(None)
 
-        # Now we can create helpuful callbacks with 
+        # Now we can create helpuful callbacks with
         # helpful parameters to help us if were stuck...
 
         @event
@@ -86,8 +86,8 @@ def signal_func(_: _AsyncFunc[_P, None]) -> type[Signal[_P, None]]:
 
 def signal_method(_: _AsyncFunc[Concatenate[Self, _P], None]) -> type[Signal[_P, None]]:
     """Helper that typehints a class method as a signal
-    This could help assist in creating Protocol Types that can 
-    define the creation of an object 
+    This could help assist in creating Protocol Types that can
+    define the creation of an object
 
     ::
 
@@ -103,8 +103,8 @@ def signal_method(_: _AsyncFunc[Concatenate[Self, _P], None]) -> type[Signal[_P,
         MySignal: MySignalProtocol[dict, int] = Signal
 
         # Signal is now been typehinted via protocol
-        # pyright or other ides should be able to 
-        # identify it as: 
+        # pyright or other ides should be able to
+        # identify it as:
         #   (owner:object) -> Signal[(a: dict, b: int), None]
 
         signal = MySignal()
