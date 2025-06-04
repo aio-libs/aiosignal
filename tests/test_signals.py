@@ -1,9 +1,10 @@
 import re
 from unittest import mock
+from typing import Protocol, cast, Awaitable
 
 import pytest
 
-from aiosignal import Signal
+from aiosignal import Signal, signal_func, signal_method
 
 
 class Owner:
@@ -156,6 +157,51 @@ def test_repr(owner: Owner) -> None:
 
 async def test_decorator_callback_dispatch_args_kwargs(owner: Owner) -> None:
     signal = Signal(owner)
+    args = {"a", "b"}
+    kwargs = {"foo": 1, "bar": 2}
+
+    callback_mock = mock.Mock()
+
+    @signal
+    async def callback(*args: object, **kwargs: object) -> None:
+        callback_mock(*args, **kwargs)
+
+    signal.freeze()
+    await signal.send(*args, **kwargs)
+
+
+async def test_paramspec_argument_passing_from_function(owner: Owner):
+
+    @signal_func
+    async def defined_signal(foo: int, bar: int):
+        return
+
+    assert defined_signal == Signal, "Signal did not pass"
+
+    signal = defined_signal(owner)
+    args = {"a", "b"}
+    kwargs = {"foo": 1, "bar": 2}
+
+    callback_mock = mock.Mock()
+
+    @signal
+    async def callback(*args: object, **kwargs: object) -> None:
+        callback_mock(*args, **kwargs)
+
+    signal.freeze()
+    await signal.send(*args, **kwargs)
+
+
+async def test_paramspec_argument_passing_from_protocol(owner: Owner):
+
+    class MySignalProtocol(Protocol):
+        @signal_method
+        def __call__(self, foo: int, bar: int) -> Awaitable[None]:
+            return
+
+    # Casting Signals from protocol is one of the methods of type-casting
+    # What the signal is...
+    signal = cast(MySignalProtocol, Signal)(owner)
     args = {"a", "b"}
     kwargs = {"foo": 1, "bar": 2}
 

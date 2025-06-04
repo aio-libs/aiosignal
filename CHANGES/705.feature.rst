@@ -1,0 +1,2 @@
+Added extra type hint safety by adding 2 new methods for passing parameter data to a signal either by the use of a wrapper function or when using a class method.
+-- by ``@Vizonex``.
