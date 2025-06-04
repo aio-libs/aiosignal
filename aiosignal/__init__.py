@@ -79,7 +79,9 @@ def signal_func(_: _AsyncFunc[_P, None]) -> type[Signal[_P, None]]:
     return Signal
 
 
-def signal_method(_: _AsyncFunc[Concatenate[_Self, _P], None]) -> type[Signal[_P, None]]:
+def signal_method(
+    _: _AsyncFunc[Concatenate[_Self, _P], None]
+) -> type[Signal[_P, None]]:
     """Helper that typehints a class method as a signal
     This could help assist in creating Protocol Types that can
     define the creation of an object
