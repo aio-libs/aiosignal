@@ -1,6 +1,6 @@
 import re
 from unittest import mock
-from typing import Protocol, cast
+from typing import Awaitable, cast, Protocol
 
 import pytest
 
@@ -195,7 +195,7 @@ async def test_paramspec_argument_passing_from_protocol(owner: Owner):
 
     class MySignalProtocol(Protocol):
         @signal_method
-        def __call__(self, foo: int, bar: int) -> None: ...
+        def __call__(self, foo: int, bar: int) -> Awaitable[None]: ...
 
     # Casting Signals from protocol is one of the methods of type-casting
     # What the signal is...
