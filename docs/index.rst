@@ -16,7 +16,7 @@ The only available operation is calling the previously registered
 callbacks by using ``await sig.send(data)``.
 
 The callback parameters, which should be passed in the ``.send()`` call, can be
-specificied for a type checker:
+specified for a type checker:
 
 ```python
 signal = Signal[int, str](owner)
