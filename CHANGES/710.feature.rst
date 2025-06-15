@@ -1,0 +1,1 @@
+made ``Signal`` positional arguments easier to annotate -- by ``@Dreamsorcerer``.
