@@ -1,5 +1,5 @@
 import sys
-from typing import Awaitable, Callable, TypeVar
+from typing import Any, Awaitable, Callable, TypeVar
 
 from frozenlist import FrozenList
 
@@ -8,16 +8,25 @@ if sys.version_info >= (3, 10):
 else:
     from typing_extensions import ParamSpec
 
-_P = ParamSpec("_P")
+if sys.version_info >= (3, 11):
+    from typing import Unpack
+else:
+    from typing_extensions import Unpack
+
+if sys.version_info >= (3, 13):
+    from typing import TypeVarTuple
+else:
+    from typing_extensions import TypeVarTuple
+
 _T = TypeVar("_T")
-_AsyncFunc = Callable[_P, Awaitable[_T]]
+_Ts = TypeVarTuple("_Ts", default=Unpack[tuple[()]])
 
 __version__ = "1.3.2"
 
 __all__ = ("Signal",)
 
 
-class Signal(FrozenList[_AsyncFunc[_P, _T]]):
+class Signal(FrozenList[Callable[[Unpack[_Ts]], Awaitable[object]]]):
     """Coroutine-based signal implementation.
 
     To connect a callback to a signal, use any list method.
@@ -37,7 +46,7 @@ class Signal(FrozenList[_AsyncFunc[_P, _T]]):
             self._owner, self.frozen, list(self)
         )
 
-    async def send(self, *args: _P.args, **kwargs: _P.kwargs) -> None:
+    async def send(self, *args: Unpack[_Ts], **kwargs: Any) -> None:
         """
         Sends data to all registered receivers.
         """
@@ -47,7 +56,7 @@ class Signal(FrozenList[_AsyncFunc[_P, _T]]):
         for receiver in self:
             await receiver(*args, **kwargs)
 
-    def __call__(self, func: _AsyncFunc[_P, _T]) -> _AsyncFunc[_P, _T]:
+    def __call__(self, func: Callable[[Unpack[_Ts]], Awaitable[_T]]) -> Callable[[Unpack[_Ts]], Awaitable[_T]]:
         """Decorator to add a function to this Signal."""
         self.append(func)
         return func
