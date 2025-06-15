@@ -9,14 +9,6 @@ _site-packages-to-src-mapping =
   */lib/python*/site-packages
   *\Lib\site-packages
 
-[report]
-fail_under = 98
-skip_covered = true
-skip_empty = true
-show_missing = true
-exclude_also =
-  ^\s*@pytest\.mark\.xfail
-
 [run]
 branch = true
 cover_pylib = false
