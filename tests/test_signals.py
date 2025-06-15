@@ -171,7 +171,7 @@ async def test_decorator_callback_dispatch_args_kwargs(owner: Owner) -> None:
 async def test_type_var_protocol(owner: Owner) -> None:
     signal: Signal[str, str, int, int] = Signal(owner)
     callback_mock = mock.Mock()
-    
+
     @signal
     async def callback(a:str, b:str, foo:int, bar:int):
         assert a == "a" and b == "b" and foo == 1 and bar == 2
@@ -179,5 +179,3 @@ async def test_type_var_protocol(owner: Owner) -> None:
 
     signal.freeze()
     await signal.send("a", "b", 1, 2)
-
-
