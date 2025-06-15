@@ -3,11 +3,6 @@ from typing import Any, Awaitable, Callable, TypeVar
 
 from frozenlist import FrozenList
 
-if sys.version_info >= (3, 10):
-    from typing import ParamSpec
-else:
-    from typing_extensions import ParamSpec
-
 if sys.version_info >= (3, 11):
     from typing import Unpack
 else:
@@ -56,7 +51,9 @@ class Signal(FrozenList[Callable[[Unpack[_Ts]], Awaitable[object]]]):
         for receiver in self:
             await receiver(*args, **kwargs)
 
-    def __call__(self, func: Callable[[Unpack[_Ts]], Awaitable[_T]]) -> Callable[[Unpack[_Ts]], Awaitable[_T]]:
+    def __call__(
+        self, func: Callable[[Unpack[_Ts]], Awaitable[_T]]
+    ) -> Callable[[Unpack[_Ts]], Awaitable[_T]]:
         """Decorator to add a function to this Signal."""
         self.append(func)
         return func
