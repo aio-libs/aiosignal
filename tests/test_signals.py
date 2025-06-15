@@ -1,10 +1,15 @@
 import re
-from typing import Unpack
+import sys
 from unittest import mock
 
 import pytest
 
 from aiosignal import Signal
+
+if sys.version_info >= (3, 11):
+    from typing import Unpack
+else:
+    from typing_extensions import Unpack
 
 
 class Owner:
