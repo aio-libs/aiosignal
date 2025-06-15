@@ -1,4 +1,5 @@
 import re
+from typing import Unpack
 from unittest import mock
 
 import pytest
@@ -16,10 +17,20 @@ def owner() -> Owner:
     return Owner()
 
 
+async def test_signal_positional_args(owner: Owner) -> None:
+    async def callback(a: int, b: str) -> None:
+        return
+
+    signal = Signal[int, str](owner)
+    signal.append(callback)
+    signal.freeze()
+    await signal.send(42, "foo")
+
+
 async def test_add_signal_handler_not_a_callable(owner: Owner) -> None:
     callback = True
     signal = Signal(owner)
-    signal.append(callback)
+    signal.append(callback)  # type: ignore[arg-type]
     signal.freeze()
     with pytest.raises(TypeError):
         await signal.send()
@@ -42,20 +53,19 @@ async def test_function_signal_dispatch_kwargs(owner: Owner) -> None:
 
 
 async def test_function_signal_dispatch_args_kwargs(owner: Owner) -> None:
-    signal = Signal(owner)
-    args = {"a", "b"}
+    signal = Signal[Unpack[tuple[str, ...]]](owner)
     kwargs = {"foo": 1, "bar": 2}
 
     callback_mock = mock.Mock()
 
-    async def callback(*args, **kwargs):
+    async def callback(*args: str, **kwargs: object) -> None:
         callback_mock(*args, **kwargs)
 
     signal.append(callback)
     signal.freeze()
 
-    await signal.send(*args, **kwargs)
-    callback_mock.assert_called_once_with(*args, **kwargs)
+    await signal.send("a", "b", **kwargs)
+    callback_mock.assert_called_once_with("a", "b", **kwargs)
 
 
 async def test_non_coroutine(owner: Owner) -> None:
@@ -130,7 +140,7 @@ async def test_cannot_send_non_frozen_signal(owner: Owner) -> None:
 
     callback_mock = mock.Mock()
 
-    async def callback(**kwargs):
+    async def callback(**kwargs: object) -> None:
         callback_mock(**kwargs)  # pragma: no cover  # mustn't be called
 
     signal.append(callback)
