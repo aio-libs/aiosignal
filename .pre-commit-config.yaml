@@ -36,7 +36,7 @@ repos:
   - id: check-yaml
   - id: debug-statements
 - repo: https://github.com/PyCQA/flake8
-  rev: 7.2.0
+  rev: 7.3.0
   hooks:
   - id: flake8
     language_version: python3
@@ -56,12 +56,12 @@ repos:
     - -ignore
     - 'SC1004:'
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.33.0
+  rev: 0.33.1
   hooks:
   - id: check-github-actions
 
 - repo: https://github.com/pre-commit/mirrors-mypy.git
-  rev: v1.16.0
+  rev: v1.16.1
   hooks:
   - id: mypy
     alias: mypy-py313
