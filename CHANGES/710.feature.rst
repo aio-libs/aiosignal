@@ -1,2 +1,0 @@
-Improved type safety by allowing callback parameters to be type checked (``typing-extensions`` is now required for Python <3.13).
--- by ``@Vizonex`` and ``@Dreamsorcerer``.
