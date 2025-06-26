@@ -15,10 +15,10 @@ Changelog
 .. towncrier release notes start
 
 1.4 (2025-06-26)
-==================
+================
 
 Features
--------------------------
+--------
 
 - Added decorator functionality to ``Signal`` as a convenient way to add a callback -- by ``@Vizonex``.
   `#699 <https://github.com/aio-libs/aiosignal/pulls/699>`_
