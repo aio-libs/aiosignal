@@ -14,6 +14,29 @@ Changelog
 
 .. towncrier release notes start
 
+1.4 (2025-06-26)
+==================
+
+Features
+-------------------------
+
+- Added decorator functionality to ``Signal`` as a convenient way to add a callback -- by ``@Vizonex``.
+  `#699 <https://github.com/aio-libs/aiosignal/pulls/699>`_
+
+- Improved type safety by allowing callback parameters to be type checked (typing-extensions is now required for Python <3.13).
+  Parameters for a ``Signal`` callback should now be defined like ``Signal[int, str]`` -- by @Vizonex and @Dreamsorcerer.
+  `#699 <https://github.com/aio-libs/aiosignal/pulls/699>`_, `#710 <https://github.com/aio-libs/aiosignal/pulls/710>`_
+
+
+Misc
+----
+
+- Removed the sphinxcontrib-asyncio documentation dependency.
+  `#528 <https://github.com/aio-libs/aiosignal/pull/528>`_
+
+
+----
+
 1.3.2 (2024-12-13)
 ==================
 
