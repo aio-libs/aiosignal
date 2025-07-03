@@ -16,7 +16,7 @@ else:
 _T = TypeVar("_T")
 _Ts = TypeVarTuple("_Ts", default=Unpack[tuple[()]])
 
-__version__ = "1.3.2"
+__version__ = "1.4.0"
 
 __all__ = ("Signal",)
 
