@@ -16,12 +16,11 @@ The only available operation is calling the previously registered
 callbacks by using ``await sig.send(data)``.
 
 The callback parameters, which should be passed in the ``.send()`` call, can be
-specified for a type checker:
+specified for a type checker::
 
-```python
-signal = Signal[int, str](owner)
-signal.send(42, "foo")
-```
+    signal = Signal[int, str](owner)
+    signal.send(42, "foo")
+
 
 For concrete usage examples see the :ref:`aiohttp:aiohttp-web-signals` section of the :doc:`aiohttp:web_advanced` chapter of the :doc:`aiohttp documentation <aiohttp:index>`.
 
