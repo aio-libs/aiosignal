@@ -56,7 +56,7 @@ repos:
     - -ignore
     - 'SC1004:'
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.33.1
+  rev: 0.33.2
   hooks:
   - id: check-github-actions
 
