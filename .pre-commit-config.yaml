@@ -56,12 +56,12 @@ repos:
     - -ignore
     - 'SC1004:'
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.33.1
+  rev: 0.33.2
   hooks:
   - id: check-github-actions
 
 - repo: https://github.com/pre-commit/mirrors-mypy.git
-  rev: v1.16.1
+  rev: v1.17.1
   hooks:
   - id: mypy
     alias: mypy-py313
