@@ -1,5 +1,5 @@
 -r wheel.txt
 
-coverage==7.10.1
+coverage==7.10.2
 pytest-cov==6.2.1
 tox==4.28.4
