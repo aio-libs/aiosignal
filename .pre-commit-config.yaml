@@ -7,7 +7,7 @@ repos:
     entry: ./tools/check_changes.py
     pass_filenames: false
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v5.0.0
+  rev: v6.0.0
   hooks:
   - id: check-merge-conflict
     exclude: rst$
@@ -22,7 +22,7 @@ repos:
     alias: yaml
     args: [--autofix, --indent, '2']
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v5.0.0
+  rev: v6.0.0
   hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
@@ -56,12 +56,12 @@ repos:
     - -ignore
     - 'SC1004:'
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.33.1
+  rev: 0.34.0
   hooks:
   - id: check-github-actions
 
 - repo: https://github.com/pre-commit/mirrors-mypy.git
-  rev: v1.16.1
+  rev: v1.18.2
   hooks:
   - id: mypy
     alias: mypy-py313
