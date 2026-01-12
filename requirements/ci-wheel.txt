@@ -2,4 +2,4 @@
 
 coverage==7.10.7
 pytest-cov==7.0.0
-tox==4.30.3
+tox==4.34.1
