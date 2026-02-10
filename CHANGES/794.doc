@@ -1,0 +1,1 @@
+Fixed broken RST hyperlinks in README, added missing ``await`` in docs code example, and updated outdated Python and frozenlist version requirements in documentation to match ``setup.cfg``.
