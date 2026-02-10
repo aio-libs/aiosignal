@@ -44,9 +44,9 @@ The only available operation is calling the previously registered
 callbacks by using ``await sig.send(data)``.
 
 For concrete usage examples see the `Signals
-<https://docs.aiohttp.org/en/stable/web_advanced.html#aiohttp-web-signals>
+<https://docs.aiohttp.org/en/stable/web_advanced.html#aiohttp-web-signals>`_
 section of the `Web Server Advanced
-<https://docs.aiohttp.org/en/stable/web_advanced.html>` chapter of the `aiohttp
+<https://docs.aiohttp.org/en/stable/web_advanced.html>`_ chapter of the `aiohttp
 documentation`_.
 
 

@@ -19,7 +19,7 @@ The callback parameters, which should be passed in the ``.send()`` call, can be
 specified for a type checker::
 
     signal = Signal[int, str](owner)
-    signal.send(42, "foo")
+    await signal.send(42, "foo")
 
 
 For concrete usage examples see the :ref:`aiohttp:aiohttp-web-signals` section of the :doc:`aiohttp:web_advanced` chapter of the :doc:`aiohttp documentation <aiohttp:index>`.
@@ -54,7 +54,7 @@ Installation
 
    $ pip install aiosignal
 
-The library requires Python 3.8 or newer.
+The library requires Python 3.9 or newer.
 
 Dependencies
 ------------
@@ -78,8 +78,8 @@ Feel free to post your questions and ideas here.
 Requirements
 ============
 
-- Python >= 3.8
-- frozenlist >= 1.0.0
+- Python >= 3.9
+- frozenlist >= 1.1.0
 
 License
 =======
