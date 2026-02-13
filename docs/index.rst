@@ -19,7 +19,7 @@ The callback parameters, which should be passed in the ``.send()`` call, can be
 specified for a type checker::
 
     signal = Signal[int, str](owner)
-    signal.send(42, "foo")
+    await signal.send(42, "foo")
 
 
 For concrete usage examples see the :ref:`aiohttp:aiohttp-web-signals` section of the :doc:`aiohttp:web_advanced` chapter of the :doc:`aiohttp documentation <aiohttp:index>`.
