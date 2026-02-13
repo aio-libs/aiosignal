@@ -54,8 +54,6 @@ Installation
 
    $ pip install aiosignal
 
-The library requires Python 3.8 or newer.
-
 Dependencies
 ------------
 
@@ -74,12 +72,6 @@ Communication channels
 Feel free to post your questions and ideas here.
 
 *gitter chat* https://gitter.im/aio-libs/Lobby
-
-Requirements
-============
-
-- Python >= 3.8
-- frozenlist >= 1.0.0
 
 License
 =======
