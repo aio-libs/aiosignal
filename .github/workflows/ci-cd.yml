@@ -89,7 +89,7 @@ jobs:
       with:
         python-version: 3.11
     - name: Check out src from Git
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: >-
         Calculate dependency files' combined hash value
         for use in the cache key
