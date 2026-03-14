@@ -37,8 +37,8 @@ class Signal(FrozenList[Callable[[Unpack[_Ts]], Awaitable[object]]]):
         self._owner = owner
 
     def __repr__(self) -> str:
-        return "<Signal owner={}, frozen={}, {!r}>".format(
-            self._owner, self.frozen, list(self)
+        return "<{} owner={}, frozen={}, {!r}>".format(
+            self.__class__.__name__, self._owner, self.frozen, list(self)
         )
 
     async def send(self, *args: Unpack[_Ts], **kwargs: Any) -> None:
