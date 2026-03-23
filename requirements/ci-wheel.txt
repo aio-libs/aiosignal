@@ -1,5 +1,5 @@
 -r wheel.txt
 
 coverage==7.13.5
-pytest-cov==7.0.0
+pytest-cov==7.1.0
 tox==4.50.3
