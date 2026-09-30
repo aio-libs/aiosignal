@@ -1,0 +1,1 @@
+Added a static-typing regression suite (``tests/test_typing.py``) asserting that ``Signal[...]`` constrains ``append()``, ``send()`` and the decorator form -- previously a type-erasing regression in ``send()`` could land with a green CI.
