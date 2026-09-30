@@ -1,0 +1,1 @@
+Moved project metadata from ``setup.cfg`` to ``pyproject.toml`` per :pep:`621`, and switched the license declaration to a :pep:`639` SPDX expression.
