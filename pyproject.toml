@@ -5,6 +5,51 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 
+[project]
+name = "aiosignal"
+description = "aiosignal: a list of registered asynchronous callbacks"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+maintainers = [{ name = "aiohttp team", email = "team@aiohttp.org" }]
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+
+  "Intended Audience :: Developers",
+
+  "Framework :: AsyncIO",
+
+  "Operating System :: POSIX",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: Microsoft :: Windows",
+
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+  "frozenlist >= 1.1.0",
+  "typing-extensions >= 4.4; python_version < '3.13'",
+]
+dynamic = ["version", "readme"]
+
+[project.urls]
+"Homepage" = "https://github.com/aio-libs/aiosignal"
+"Chat: Gitter" = "https://gitter.im/aio-libs/Lobby"
+"CI: GitHub Actions" = "https://github.com/aio-libs/aiosignal/actions"
+"Coverage: codecov" = "https://codecov.io/github/aio-libs/aiosignal"
+"Docs: RTD" = "https://docs.aiosignal.org"
+"GitHub: issues" = "https://github.com/aio-libs/aiosignal/issues"
+"GitHub: repo" = "https://github.com/aio-libs/aiosignal"
+
+[tool.setuptools.dynamic]
+version = { attr = "aiosignal.__version__" }
+readme = { file = ["README.rst"], content-type = "text/x-rst" }
+
+[tool.setuptools.packages.find]
+include = ["aiosignal*"]
+
+
 [tool.towncrier]
 package = "aiosignal"
 filename = "CHANGES.rst"
