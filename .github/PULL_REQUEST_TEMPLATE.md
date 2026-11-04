@@ -8,25 +8,55 @@
 
 <!-- Outline any notable behaviour for the end users. -->
 
+## Is it a substantial burden for the maintainers to support this?
+
+<!--
+Stop right there! Pause. Just for a minute... Can you think of anything
+obvious that would complicate the ongoing development of this project?
+
+Try to consider if you'd be able to maintain it throughout the next
+5 years. Does it seem viable? Tell us your thoughts! We'd very much
+love to hear what the consequences of merging this patch might be...
+
+This will help us assess if your change is something we'd want to
+entertain early in the review process. Thank you in advance!
+-->
+
 ## Related issue number
 
-<!-- Are there any issues opened that will be resolved by merging this change? -->
+<!--
+Are there any issues opened that will be resolved by merging this change?
+Remember to prefix with 'Fixes' if it closes an issue (e.g. 'Fixes #123').
+-->
 
 ## Checklist
 
 - [ ] I think the code is well written
 - [ ] Unit tests for the changes exist
 - [ ] Documentation reflects the changes
-- [ ] If you provide code modification, please add yourself to `CONTRIBUTORS.txt`
+- [ ] If you provide code modifications, please add yourself to
+  `CONTRIBUTORS.txt`
   * The format is &lt;Name&gt; &lt;Surname&gt;.
-  * Please keep alphabetical order, the file is sorted by names.
-- [ ] Add a new news fragment into the `CHANGES` folder
-  * name it `<issue_id>.<type>` for example (588.bugfix)
-  * if you don't have an `issue_id` change it to the pr id after creating the pr
-  * ensure type is one of the following:
-    * `.feature`: Signifying a new feature.
-    * `.bugfix`: Signifying a bug fix.
-    * `.doc`: Signifying a documentation improvement.
-    * `.removal`: Signifying a deprecation or removal of public API.
-    * `.misc`: A ticket has been closed, but it is not of interest to users.
-  * Make sure to use full sentences with correct case and punctuation, for example: "Fix issue with non-ascii contents in doctest text files."
+  * Please keep the list in alphabetical order, the file is sorted by name.
+- [ ] Add a new news fragment into the `CHANGES/` folder
+  * name it `<issue_or_pr_num>.<category>.rst` for example
+    (`911.misc.rst`)
+  * if you don't have an issue number, change it to the pull request
+    number after creating the PR
+  * ensure category is one of the following:
+    * `bugfix`: Signifying a bug fix.
+    * `feature`: Signifying a new feature.
+    * `removal`: Signifying a deprecation or removal of public API.
+    * `doc`: Signifying a documentation improvement.
+    * `misc`: Anything that does not fit the above; usually, something
+      not of interest to users.
+  * Make sure to use full sentences with correct case and punctuation.
+    Explain high-level effects affecting the end-users, for example:
+    ```rst
+    Test runner no longer crashes when loading non-ASCII contents
+    in doctest text files.
+    ```
+
+    Use the past tense or the present tense in a non-imperative mood,
+    referring to what's changed compared to the last released version
+    of this project.
